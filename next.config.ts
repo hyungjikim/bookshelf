@@ -1,7 +1,20 @@
-import type { NextConfig } from "next";
+import stylexPlugin from "@stylexswc/nextjs-plugin";
+import path from "path";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const rootDir = __dirname;
 
-export default nextConfig;
+const withStylex = stylexPlugin({
+  rsOptions: {
+    aliases: {
+      "@/*": [path.join(rootDir, "*")],
+    },
+    unstable_moduleResolution: {
+      type: "commonJS",
+      rootDir,
+    },
+  },
+});
+
+const nextConfig = {};
+
+export default withStylex(nextConfig);
