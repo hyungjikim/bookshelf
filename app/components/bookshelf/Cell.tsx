@@ -5,10 +5,22 @@ type Book = Database["public"]["Tables"]["books"]["Row"];
 
 export default function Cell({ book }: { book: Book }) {
   return (
-    <div {...stylex.props(styles.container)}>
-      <h1 {...stylex.props(styles.title)}>{book.title}</h1>
-      <p {...stylex.props(styles.desc, styles.author)}>{book.author}</p>
-      <p {...stylex.props(styles.desc, styles.publisher)}>{book.publisher}</p>
+    <div {...stylex.props(styles.container)} data-testid="cell-container">
+      <h1 {...stylex.props(styles.title)} data-testid="cell-title">
+        {book.title}
+      </h1>
+      <p
+        {...stylex.props(styles.desc, styles.author)}
+        data-testid="cell-author"
+      >
+        {book.author}
+      </p>
+      <p
+        {...stylex.props(styles.desc, styles.publisher)}
+        data-testid="cell-publisher"
+      >
+        {book.publisher}
+      </p>
     </div>
   );
 }
