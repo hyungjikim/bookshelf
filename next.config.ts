@@ -3,6 +3,8 @@ import path from "path";
 
 const rootDir = __dirname;
 
+const isProd = process.env.NODE_ENV === "production";
+
 const withStylex = stylexPlugin({
   rsOptions: {
     aliases: {
@@ -15,6 +17,12 @@ const withStylex = stylexPlugin({
   },
 });
 
-const nextConfig = {};
+const nextConfig = {
+  compiler: isProd
+    ? {
+        reactRemoveProperties: { properties: ["^data-testid$"] },
+      }
+    : {},
+};
 
 export default withStylex(nextConfig);
