@@ -53,7 +53,10 @@ export async function socialLogin(provider: SocialLoginProvider) {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
-      redirectTo: "http://localhost:3000/auth/callback",
+      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
+      queryParams: {
+        prompt: "consent",
+      },
     },
   });
 
