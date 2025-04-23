@@ -1,6 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+const PUBLIC_ROUTES = ["/"];
+
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -28,6 +30,14 @@ export async function updateSession(request: NextRequest) {
       },
     }
   );
+
+  const isPublicRoute = PUBLIC_ROUTES.some(
+    (route) => request.nextUrl.pathname === route
+  );
+
+  if (isPublicRoute) {
+    return supabaseResponse;
+  }
 
   // Do not run code between createServerClient and
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
