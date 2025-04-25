@@ -1,4 +1,5 @@
-import { login, signup, socialLogin } from "./actions";
+import Link from "next/link";
+import { login, socialLogin } from "./actions";
 
 export default function LoginPage() {
   const googleLogin = socialLogin.bind(null, "google");
@@ -12,7 +13,7 @@ export default function LoginPage() {
         <label htmlFor="password">Password:</label>
         <input id="password" name="password" type="password" required />
         <button formAction={login}>Log in</button>
-        <button formAction={signup}>Sign up</button>
+        <Link href="/sign-up">회원가입하기</Link>
       </form>
       <button onClick={googleLogin}>login with google</button>
       <button onClick={githubLogin}>login with github</button>
