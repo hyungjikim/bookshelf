@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
-import InfiniteBookshelf from "./components/bookshelf/InfiniteBookshelf";
 import * as stylex from "@stylexjs/stylex";
-import { PAGE_SIZE } from "./constants/books";
+import InfiniteBookshelf from "../components/bookshelf/InfiniteBookshelf";
+import { PAGE_SIZE } from "../constants/books";
 
 export default async function Home() {
   const supabase = await createClient();
