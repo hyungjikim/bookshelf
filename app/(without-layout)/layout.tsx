@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
 
-export default function Layout({ children }: { children: ReactNode }) {
-  return (
-    <html lang="ko">
-      <body>{children}</body>
-    </html>
-  );
+export default function Layout({
+  children,
+}: {
+  children: ReactNode;
+  modal: ReactNode;
+}) {
+  return children;
 }
