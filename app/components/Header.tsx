@@ -21,7 +21,7 @@ export default function Header() {
               <Link href="/contact">Contact</Link>
             </li>
             <li>
-              <Link href="/login">로그인</Link>
+              <Link href="/sign-in">로그인</Link>
             </li>
           </ul>
         </nav>
