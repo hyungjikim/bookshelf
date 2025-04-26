@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import Form from "next/form";
 import * as stylex from "@stylexjs/stylex";
 import { State } from "./types";
-import { signup } from "./actions";
+import { signUp } from "./actions";
 
 const initialState = {
   fieldError: {},
@@ -13,7 +13,7 @@ const initialState = {
 
 export default function SignUpPage() {
   const [state, formAction, pending] = useActionState<State, FormData>(
-    signup,
+    signUp,
     initialState
   );
 

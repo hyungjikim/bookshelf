@@ -6,7 +6,7 @@ import { State } from "./types";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function signup(_prevState: State, formData: FormData) {
+export async function signUp(_prevState: State, formData: FormData) {
   const supabase = await createClient();
 
   const schema = z.object({
