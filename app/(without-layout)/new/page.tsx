@@ -1,5 +1,5 @@
-import { Tiptap } from "./components/editor/Tiptap";
+import { PublishForm } from "./components/Form";
 
 export default function Page() {
-  return <Tiptap />;
+  return <PublishForm />;
 }
