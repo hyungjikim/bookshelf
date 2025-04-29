@@ -6,6 +6,10 @@ import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 import Toolbar from "./Toolbar";
 import * as stylex from "@stylexjs/stylex";
+import { publish } from "../../actions";
+import { useActionState } from "react";
+import Form from "next/form";
+import { PublishState } from "../../types";
 
 export function Tiptap() {
   const editor = useEditor({
@@ -24,11 +28,41 @@ export function Tiptap() {
     immediatelyRender: false,
   });
 
+  const [state, formAction, pending] = useActionState<PublishState, FormData>(
+    publish,
+    { message: "", title: "", author: "", publisher: "", content: "" }
+  );
+
   return (
-    <div {...stylex.props(styles.container)}>
+    <Form action={formAction} {...stylex.props(styles.container)}>
+      <div>
+        <label htmlFor="title">책 제목</label>
+        <input id="title" name="title" required defaultValue={state?.title} />
+      </div>
+      <div>
+        <label htmlFor="author">작가 이름</label>
+        <input id="author" name="author" defaultValue={state?.author} />
+      </div>
+      <div>
+        <label htmlFor="publisher">출판사</label>
+        <input
+          id="publisher"
+          name="publisher"
+          defaultValue={state?.publisher}
+        />
+      </div>
+
       <Toolbar editor={editor} />
       <EditorContent editor={editor} />
-    </div>
+      <input type="hidden" name="content" value={editor?.getHTML() || ""} />
+
+      <button type="submit" disabled={pending}>
+        발행하기
+      </button>
+      <p aria-live="polite" role="status">
+        {state?.message}
+      </p>
+    </Form>
   );
 }
 
