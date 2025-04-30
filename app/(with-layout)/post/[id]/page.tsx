@@ -1,5 +1,7 @@
+import { getBookDetail } from "@/app/lib/queries/getBookDetail";
 import { Database } from "@/database.types";
 import { createClient as createClientWithoutCookie } from "@supabase/supabase-js";
+import { notFound } from "next/navigation";
 
 type BookDetails = Database["public"]["Tables"]["book_details"]["Row"];
 
@@ -32,6 +34,12 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+
+  const { bookDetail, error } = await getBookDetail(id);
+
+  if (!bookDetail || error) {
+    notFound();
+  }
 
   return <div>This is {id}</div>;
 }
