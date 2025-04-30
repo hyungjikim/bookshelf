@@ -2,21 +2,27 @@ import { createClient } from "@/utils/supabase/server";
 import * as stylex from "@stylexjs/stylex";
 import InfiniteBookshelf from "../components/bookshelf/InfiniteBookshelf";
 import { PAGE_SIZE } from "../constants/books";
+import { BooksListWithJoin } from "../components/bookshelf/types";
+import { mapToBookUI } from "../utils/mapBooks";
+import { BOOKS_SELECT } from "../lib/queries/getBooks";
 
 export default async function Home() {
   const supabase = await createClient();
   const { data: initialData } = await supabase
-    .from("books")
-    .select()
-    .limit(PAGE_SIZE);
+    .from("book_details")
+    .select(BOOKS_SELECT)
+    .limit(PAGE_SIZE)
+    .overrideTypes<BooksListWithJoin[], { merge: false }>();
 
   if (!initialData)
     return <p {...stylex.props(styles.noBooks)}>Oops! No books added yet</p>;
 
+  const mappedBooks = initialData.map(mapToBookUI);
+
   return (
     <div>
       <main {...stylex.props(styles.wrpper)}>
-        <InfiniteBookshelf initialData={initialData} />
+        <InfiniteBookshelf initialData={mappedBooks} />
       </main>
     </div>
   );
