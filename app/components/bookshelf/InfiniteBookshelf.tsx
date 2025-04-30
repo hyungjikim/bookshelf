@@ -10,6 +10,7 @@ import * as stylex from "@stylexjs/stylex";
 import { BooksListWithJoin } from "./types";
 import { mapToBookUI } from "../../utils/mapBooks";
 import { BOOKS_SELECT } from "../../lib/queries/getBooks";
+import { useRouter } from "next/navigation";
 
 type Books = Database["public"]["Tables"]["books"]["Row"];
 
@@ -33,6 +34,8 @@ export default function InfiniteBookshelf({
     estimateSize: () => 120,
     overscan: 2,
   });
+
+  const router = useRouter();
 
   useEffect(() => {
     const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
@@ -112,6 +115,7 @@ export default function InfiniteBookshelf({
                 height: `${virtualRow.size}px`,
                 transform: `translateY(${virtualRow.start}px)`,
               }}
+              onClick={() => router.push(`/post/${book.id}`)}
             >
               {isLoaderRow && hasMore ? (
                 "...loading more"
