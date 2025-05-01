@@ -19,6 +19,16 @@ export async function publish(_prevState: PublishState, formData: FormData) {
 
   const userId = user?.id;
 
+  if (!userId) {
+    return {
+      message: "글을 작성할 수 없습니다.",
+      title: title as string,
+      author: author as string,
+      publisher: publisher as string,
+      content: content as string,
+    };
+  }
+
   // 기존에 등록된 책인지 확인
   const { data: existingBooks } = await supabase
     .from("books")
@@ -59,6 +69,7 @@ export async function publish(_prevState: PublishState, formData: FormData) {
       book_id: bookId,
       content,
       user_id: userId,
+      user_name: user?.user_metadata.full_name,
     });
 
   if (insertReviewError)
