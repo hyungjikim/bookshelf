@@ -126,7 +126,7 @@ export default function InfiniteBookshelf({
       </div>
       <div ref={loadMoreRef} style={{ height: 2 }} />
       {!hasMore && !loading && (
-        <p {...stylex.props(styles.last)}>Oops! nothing to load more</p>
+        <p {...stylex.props(styles.last)}>🎉 끝까지 확인하셨습니다!</p>
       )}
     </div>
   );

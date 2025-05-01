@@ -13,7 +13,7 @@ export default async function Home() {
     .limit(PAGE_SIZE);
 
   if (!initialData)
-    return <p {...stylex.props(styles.noBooks)}>Oops! No books added yet</p>;
+    return <p {...stylex.props(styles.noBooks)}>📖 아직 추가된 책이 없어요!</p>;
 
   const mappedBooks = initialData.map(mapToBookUI);
 
