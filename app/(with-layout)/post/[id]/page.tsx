@@ -1,5 +1,4 @@
 import { getBookDetail } from "@/app/lib/queries/getBookDetail";
-import { Database } from "@/database.types";
 import { createClient as createClientWithoutCookie } from "@supabase/supabase-js";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -7,8 +6,6 @@ import * as stylex from "@stylexjs/stylex";
 import { Loader } from "lucide-react";
 import { Header } from "./components/Header";
 import { Content } from "./components/Content";
-
-type BookDetails = Database["public"]["Tables"]["book_details"]["Row"];
 
 export async function generateStaticParams() {
   /**
@@ -23,8 +20,7 @@ export async function generateStaticParams() {
 
   const { data: bookDetails, error } = await supabase
     .from("book_details")
-    .select("*")
-    .overrideTypes<BookDetails[], { merge: false }>();
+    .select("*");
 
   if (error) return [];
 
@@ -40,7 +36,7 @@ export default async function Page({
 }) {
   const { id } = await params;
 
-  const { bookDetail, error } = await getBookDetail(id);
+  const { bookDetail, error } = await getBookDetail(Number(id));
 
   if (!bookDetail || error) {
     notFound();

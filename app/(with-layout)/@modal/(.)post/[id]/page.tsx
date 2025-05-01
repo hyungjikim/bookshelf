@@ -14,7 +14,7 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const { bookDetail, error } = await getBookDetail(id);
+  const { bookDetail, error } = await getBookDetail(Number(id));
 
   if (!bookDetail || error) {
     notFound();

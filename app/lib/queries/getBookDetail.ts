@@ -7,7 +7,7 @@ import { createClient } from "@/utils/supabase/server";
  * - bookDetail: id 에 대응하는 데이터, 없으면 null
  * - error: supbase error, 없으면 null
  *  */
-export async function getBookDetail(id: string) {
+export async function getBookDetail(id: number) {
   const supabase = await createClient();
   const { data: bookDetail, error } = await supabase
     .from("book_details")
