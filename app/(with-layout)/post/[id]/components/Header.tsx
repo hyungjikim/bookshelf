@@ -12,12 +12,16 @@ export async function Header({ id }: { id: number }) {
 
   if (error) return <p>🥹 책 정보를 불러오지 못했습니다</p>;
 
+  const { title, author, publisher } = book;
+
   return (
     <div {...stylex.props(styles.container)}>
-      <h2 {...stylex.props(styles.h2)}>{book.title}</h2>
-      {book.author && <span>{book.author} 지음</span>}
-      {book.author && book.publisher && <small> / {book.publisher} 출판</small>}
-      {!book.author && book.publisher && <small>{book.publisher} 출판</small>}
+      <h2 {...stylex.props(styles.h2)}>{title}</h2>
+      <span>
+        {author && `${author} 지음`}
+        {author && publisher && " / "}
+        {publisher && `${publisher} 출판`}
+      </span>
     </div>
   );
 }
