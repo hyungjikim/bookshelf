@@ -1,8 +1,4 @@
-interface ContentProps {
-  body: string;
-}
-
-export function Content({ body }: { body: ContentProps }) {
+export function Content({ body }: { body: string }) {
   return (
     <div>
       <span dangerouslySetInnerHTML={{ __html: body }} />

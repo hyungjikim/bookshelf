@@ -2,7 +2,6 @@ import { createClient } from "@/utils/supabase/server";
 import * as stylex from "@stylexjs/stylex";
 import InfiniteBookshelf from "../components/bookshelf/InfiniteBookshelf";
 import { PAGE_SIZE } from "../constants/books";
-import { BooksListWithJoin } from "../components/bookshelf/types";
 import { mapToBookUI } from "../utils/mapBooks";
 import { BOOKS_SELECT } from "../lib/queries/getBooks";
 
@@ -11,8 +10,7 @@ export default async function Home() {
   const { data: initialData } = await supabase
     .from("book_details")
     .select(BOOKS_SELECT)
-    .limit(PAGE_SIZE)
-    .overrideTypes<BooksListWithJoin[], { merge: false }>();
+    .limit(PAGE_SIZE);
 
   if (!initialData)
     return <p {...stylex.props(styles.noBooks)}>Oops! No books added yet</p>;

@@ -7,7 +7,6 @@ import { PAGE_SIZE } from "@/app/constants/books";
 import { Database } from "@/database.types";
 import Cell from "./Cell";
 import * as stylex from "@stylexjs/stylex";
-import { BooksListWithJoin } from "./types";
 import { mapToBookUI } from "../../utils/mapBooks";
 import { BOOKS_SELECT } from "../../lib/queries/getBooks";
 import { useRouter } from "next/navigation";
@@ -59,8 +58,7 @@ export default function InfiniteBookshelf({
           const { data: moreBooks } = await supabase
             .from("book_details")
             .select(BOOKS_SELECT)
-            .range(from, to)
-            .overrideTypes<BooksListWithJoin[], { merge: false }>();
+            .range(from, to);
 
           const booksToAdd = moreBooks?.map(mapToBookUI) ?? [];
 
