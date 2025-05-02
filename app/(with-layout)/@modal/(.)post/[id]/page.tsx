@@ -22,7 +22,7 @@ export default async function Page({
 
   return (
     <Overlay>
-      <BookDetailModal>
+      <BookDetailModal id={bookDetail.id}>
         <Suspense
           fallback={
             <div {...stylex.props(styles.fallbackWrapper)}>

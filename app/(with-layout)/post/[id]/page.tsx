@@ -6,6 +6,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Loader } from "lucide-react";
 import { Header } from "./components/Header";
 import { Content } from "./components/Content";
+import { PostActionsControls } from "./components/PostActionControls";
 
 export async function generateStaticParams() {
   /**
@@ -44,7 +45,8 @@ export default async function Page({
 
   return (
     <main {...stylex.props(styles.container)}>
-      <div>
+      <section {...stylex.props(styles.section)}>
+        <PostActionsControls id={bookDetail.id} />
         <Suspense
           fallback={
             <div {...stylex.props(styles.fallbackWrapper)}>
@@ -58,7 +60,7 @@ export default async function Page({
         <div {...stylex.props(styles.contentWrapper)}>
           <Content body={bookDetail.content} />
         </div>
-      </div>
+      </section>
     </main>
   );
 }
@@ -74,6 +76,10 @@ const styles = stylex.create({
     padding: "12px",
     borderRadius: "12px",
   },
+  section: {
+    width: "100%",
+  },
+
   contentWrapper: {
     marginTop: "12px",
   },
