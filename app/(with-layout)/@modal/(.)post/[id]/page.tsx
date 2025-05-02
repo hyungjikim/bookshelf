@@ -7,6 +7,8 @@ import { Header } from "../../../post/[id]/components/Header";
 import { Content } from "../../../post/[id]/components/Content";
 import { Loader } from "lucide-react";
 import * as stylex from "@stylexjs/stylex";
+import { ModalHeaderActions } from "./components/ModalHeaderActions";
+import { WithAuthorOnly } from "../../../post/[id]/components/WithAuthorOnly";
 
 export default async function Page({
   params,
@@ -15,14 +17,16 @@ export default async function Page({
 }) {
   const { id } = await params;
   const { bookDetail, error } = await getBookDetail(Number(id));
-
   if (!bookDetail || error) {
     notFound();
   }
 
   return (
     <Overlay>
-      <BookDetailModal id={bookDetail.id}>
+      <BookDetailModal>
+        <WithAuthorOnly createdBy={bookDetail.user_id}>
+          <ModalHeaderActions id={bookDetail.id} />
+        </WithAuthorOnly>
         <Suspense
           fallback={
             <div {...stylex.props(styles.fallbackWrapper)}>

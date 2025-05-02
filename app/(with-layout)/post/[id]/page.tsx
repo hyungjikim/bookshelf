@@ -8,6 +8,7 @@ import { Header } from "./components/Header";
 import { Content } from "./components/Content";
 import { PostActionsControls } from "./components/PostActionControls";
 import { layoutStyles } from "@/app/styles/layout.styles";
+import { WithAuthorOnly } from "./components/WithAuthorOnly";
 
 export async function generateStaticParams() {
   /**
@@ -47,7 +48,9 @@ export default async function Page({
   return (
     <main {...stylex.props(layoutStyles.container)}>
       <section {...stylex.props(layoutStyles.section)}>
-        <PostActionsControls id={bookDetail.id} />
+        <WithAuthorOnly createdBy={bookDetail.user_id}>
+          <PostActionsControls id={bookDetail.id} />
+        </WithAuthorOnly>
         <Suspense
           fallback={
             <div {...stylex.props(layoutStyles.fallbackWrapper)}>
