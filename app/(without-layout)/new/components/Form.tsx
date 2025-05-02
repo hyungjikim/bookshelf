@@ -7,6 +7,7 @@ import Form from "next/form";
 import { publish } from "../actions";
 import { PublishState } from "../types";
 import EditorWrapper from "./editor/Tiptap";
+import { formStyles } from "@/app/styles/form.styles";
 
 export function PublishForm() {
   const [state, formAction, pending] = useActionState<PublishState, FormData>(
@@ -17,7 +18,7 @@ export function PublishForm() {
   const [content, setContent] = useState("");
 
   return (
-    <Form action={formAction} {...stylex.props(styles.container)}>
+    <Form action={formAction} {...stylex.props(formStyles.container)}>
       <div>
         <label htmlFor="title">책 제목</label>
         <input id="title" name="title" required defaultValue={state?.title} />
@@ -47,15 +48,3 @@ export function PublishForm() {
     </Form>
   );
 }
-
-const styles = stylex.create({
-  container: {
-    maxWidth: "70vw",
-    margin: "24px auto",
-    border: "1px solid #ccc",
-    padding: "24px",
-    borderRadius: "12px",
-    display: "grid",
-    gap: "12px",
-  },
-});

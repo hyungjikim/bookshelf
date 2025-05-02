@@ -7,6 +7,7 @@ import { Loader } from "lucide-react";
 import { Header } from "./components/Header";
 import { Content } from "./components/Content";
 import { PostActionsControls } from "./components/PostActionControls";
+import { layoutStyles } from "@/app/styles/layout.styles";
 
 export async function generateStaticParams() {
   /**
@@ -44,12 +45,12 @@ export default async function Page({
   }
 
   return (
-    <main {...stylex.props(styles.container)}>
-      <section {...stylex.props(styles.section)}>
+    <main {...stylex.props(layoutStyles.container)}>
+      <section {...stylex.props(layoutStyles.section)}>
         <PostActionsControls id={bookDetail.id} />
         <Suspense
           fallback={
-            <div {...stylex.props(styles.fallbackWrapper)}>
+            <div {...stylex.props(layoutStyles.fallbackWrapper)}>
               <b>책 정보를 불러오고 있어요...</b>
               <Loader />
             </div>
@@ -66,24 +67,7 @@ export default async function Page({
 }
 
 const styles = stylex.create({
-  container: {
-    margin: "0 auto",
-    maxWidth: "760px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    border: "1px solid #eee",
-    padding: "12px",
-    borderRadius: "12px",
-  },
-  section: {
-    width: "100%",
-  },
-
   contentWrapper: {
     marginTop: "12px",
-  },
-  fallbackWrapper: {
-    minHeight: "56px",
   },
 });
