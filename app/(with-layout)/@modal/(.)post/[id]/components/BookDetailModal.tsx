@@ -1,48 +1,13 @@
-"use client";
-
-import { PostActionsMenu } from "@/app/(with-layout)/post/[id]/components/PostActionsMenu";
 import * as stylex from "@stylexjs/stylex";
-import { Menu, X } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 
-export function BookDetailModal({
-  children,
-  id,
-}: {
-  children: ReactNode;
-  id: number;
-}) {
-  const router = useRouter();
-
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
-
+export function BookDetailModal({ children }: { children: ReactNode }) {
   return (
-    <>
-      <div role="dialog" {...stylex.props(styles.container)}>
-        <div {...stylex.props(styles.content)}>
-          <div {...stylex.props(styles.buttonWrapper)}>
-            <button
-              onClick={() => {
-                setIsMenuVisible((prev) => !prev);
-              }}
-            >
-              <Menu />
-            </button>
-            {isMenuVisible && (
-              <PostActionsMenu
-                id={id}
-                clickAwayCallback={() => setIsMenuVisible(false)}
-              />
-            )}
-            <button onClick={() => router.back()}>
-              <X />
-            </button>
-          </div>
-          <div>{children}</div>
-        </div>
+    <div role="dialog" aria-modal="true" {...stylex.props(styles.container)}>
+      <div {...stylex.props(styles.content)}>
+        <div>{children}</div>
       </div>
-    </>
+    </div>
   );
 }
 
