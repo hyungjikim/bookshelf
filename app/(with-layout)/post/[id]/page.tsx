@@ -6,7 +6,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Loader } from "lucide-react";
 import { Header } from "./components/Header";
 import { Content } from "./components/Content";
-import { PostActionsControls } from "./components/PostActionControls";
+import { PostActionsControls } from "./components/PostActionsControls";
 import { layoutStyles } from "@/app/styles/layout.styles";
 import { WithAuthorOnly } from "./components/WithAuthorOnly";
 
