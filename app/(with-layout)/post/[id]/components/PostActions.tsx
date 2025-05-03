@@ -28,7 +28,7 @@ export function PostActions({ id, isAuthor }: PostActionsProps) {
       {isVisible && (
         <PostActionsLayout clickAwayCallback={() => setIsVisible(false)}>
           <EditLinkItem id={id} />
-          <DeleteDialog />
+          <DeleteDialog id={id} />
         </PostActionsLayout>
       )}
     </>
