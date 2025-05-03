@@ -1,9 +1,6 @@
-"use client";
-
-import { useState } from "react";
-import { PostActionsMenu } from "./PostActionsMenu";
-import { Menu } from "lucide-react";
 import * as stylex from "@stylexjs/stylex";
+
+import { PostActions } from "./PostActions";
 
 interface PostActionsControlsProps {
   /** 액션이 필요한 게시물의 id */
@@ -18,20 +15,9 @@ export function PostActionsControls({
   id,
   isAuthor,
 }: PostActionsControlsProps) {
-  const [isVisible, setIsVisible] = useState(false);
   return (
     <div {...stylex.props(styles.container)}>
-      {isAuthor && (
-        <button onClick={() => setIsVisible((prev) => !prev)}>
-          <Menu />
-        </button>
-      )}
-      {isVisible && (
-        <PostActionsMenu
-          id={id}
-          clickAwayCallback={() => setIsVisible(false)}
-        />
-      )}
+      <PostActions id={id} isAuthor={isAuthor} />
     </div>
   );
 }

@@ -1,10 +1,9 @@
 "use client";
 
-import { PostActionsMenu } from "@/app/(with-layout)/post/[id]/components/PostActionsMenu";
+import { PostActions } from "@/app/(with-layout)/post/[id]/components/PostActions";
 import * as stylex from "@stylexjs/stylex";
-import { Menu, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 interface ModalHeaderActionsProps {
   /** 액션이 필요한 게시물의 id */
@@ -18,25 +17,9 @@ interface ModalHeaderActionsProps {
 export function ModalHeaderActions({ id, isAuthor }: ModalHeaderActionsProps) {
   const router = useRouter();
 
-  const [isActionVisible, setIsActionVisible] = useState(false);
-
   return (
     <div {...stylex.props(styles.buttonWrapper)}>
-      {isAuthor && (
-        <button
-          onClick={() => {
-            setIsActionVisible((prev) => !prev);
-          }}
-        >
-          <Menu />
-        </button>
-      )}
-      {isActionVisible && (
-        <PostActionsMenu
-          id={id}
-          clickAwayCallback={() => setIsActionVisible(false)}
-        />
-      )}
+      <PostActions id={id} isAuthor={isAuthor} />
       <button onClick={() => router.back()}>
         <X />
       </button>
