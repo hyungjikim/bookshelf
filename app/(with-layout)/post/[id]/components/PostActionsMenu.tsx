@@ -1,8 +1,9 @@
 import * as stylex from "@stylexjs/stylex";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit } from "lucide-react";
 import Link from "next/link";
 import { useRef } from "react";
 import { useClickAway } from "react-use";
+import { DeleteDialog } from "./DeleteDialog";
 
 interface PostActionsMenuProps {
   /** 수정할 게시물의 id */
@@ -28,9 +29,7 @@ export function PostActionsMenu({
           </li>
         </Link>
 
-        <li {...stylex.props(styles.li, styles.liSpace)}>
-          <Trash2 /> 삭제
-        </li>
+        <DeleteDialog />
       </ul>
     </div>
   );
