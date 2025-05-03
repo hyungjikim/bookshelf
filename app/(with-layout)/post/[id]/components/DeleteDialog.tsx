@@ -1,10 +1,15 @@
+"use client";
+
 import { listItemStyles } from "@/app/styles/listItem.styles";
 import * as stylex from "@stylexjs/stylex";
 import { Trash2 } from "lucide-react";
-import { useRef } from "react";
+import { useActionState, useRef } from "react";
+import { deleteContent } from "../_delete/actions";
 
-export function DeleteDialog() {
+export function DeleteDialog({ id }: { id: number }) {
   const ref = useRef<HTMLDialogElement>(null);
+
+  const [state, formAction] = useActionState(deleteContent, { message: "" });
   return (
     <>
       <li
@@ -31,9 +36,22 @@ export function DeleteDialog() {
             </button>
           </li>
           <li {...stylex.props(styles.confirmLi)}>
-            <button {...stylex.props(styles.confirmButton)}>삭제</button>
+            <form>
+              <input type="hidden" name="id" value={id} readOnly />
+              <button
+                {...stylex.props(styles.confirmButton)}
+                formAction={formAction}
+              >
+                삭제
+              </button>
+            </form>
           </li>
         </ul>
+        {state.message && (
+          <p aria-live="polite" role="status" {...stylex.props(styles.message)}>
+            {state.message}
+          </p>
+        )}
       </dialog>
     </>
   );
@@ -48,7 +66,6 @@ const styles = stylex.create({
     backgroundColor: "unset",
     border: "none",
     cursor: "pointer",
-    color: "rgb(23,23,23)",
     fontSize: "16px",
   },
   dialog: {
@@ -74,5 +91,11 @@ const styles = stylex.create({
   },
   confirmLi: {
     width: "100%",
+  },
+  message: {
+    marginTop: "8px",
+    textAlign: "center",
+    color: "red",
+    fontSize: "14px",
   },
 });
