@@ -4,7 +4,10 @@ import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function deleteContent(_, formData: FormData) {
+export async function deleteContent(
+  _: { message: string },
+  formData: FormData
+) {
   const supabase = await createClient();
 
   const id = formData.get("id");
