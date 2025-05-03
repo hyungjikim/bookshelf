@@ -37,6 +37,10 @@ export default function InfiniteBookshelf({
   const router = useRouter();
 
   useEffect(() => {
+    setBooks(initialData);
+  }, [initialData]);
+
+  useEffect(() => {
     const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
 
     if (!lastItem) return;
