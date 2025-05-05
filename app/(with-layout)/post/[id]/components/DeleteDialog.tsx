@@ -1,10 +1,10 @@
 "use client";
 
+import { deleteContent } from "@/app/actions/deleteContent";
 import { listItemStyles } from "@/app/styles/listItem.styles";
 import * as stylex from "@stylexjs/stylex";
 import { Trash2 } from "lucide-react";
 import { useActionState, useRef } from "react";
-import { deleteContent } from "../_delete/actions";
 
 export function DeleteDialog({ id }: { id: number }) {
   const ref = useRef<HTMLDialogElement>(null);
