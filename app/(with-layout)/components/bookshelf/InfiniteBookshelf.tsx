@@ -7,9 +7,10 @@ import { PAGE_SIZE } from "@/app/constants/books";
 import { Database } from "@/database.types";
 import Cell from "./Cell";
 import * as stylex from "@stylexjs/stylex";
-import { mapToBookUI } from "../../utils/mapBooks";
-import { BOOKS_SELECT } from "../../lib/queries/getBooks";
+
 import { useRouter } from "next/navigation";
+import { BOOKS_SELECT } from "@/app/lib/queries/getBooks";
+import { mapToBookUI } from "@/app/utils/mapBooks";
 
 type Books = Database["public"]["Tables"]["books"]["Row"];
 

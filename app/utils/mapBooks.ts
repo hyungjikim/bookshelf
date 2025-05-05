@@ -1,4 +1,4 @@
-import { BooksListWithJoin } from "../components/bookshelf/types";
+import { BooksListWithJoin } from "../(with-layout)/components/bookshelf/types";
 
 export function mapToBookUI(item: BooksListWithJoin) {
   return {

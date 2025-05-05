@@ -1,9 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
 import * as stylex from "@stylexjs/stylex";
-import InfiniteBookshelf from "../components/bookshelf/InfiniteBookshelf";
 import { PAGE_SIZE } from "../constants/books";
 import { mapToBookUI } from "../utils/mapBooks";
 import { BOOKS_SELECT } from "../lib/queries/getBooks";
+import InfiniteBookshelf from "./components/bookshelf/InfiniteBookshelf";
 
 export default async function Home() {
   const supabase = await createClient();
