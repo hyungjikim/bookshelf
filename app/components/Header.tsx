@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import * as stylex from "@stylexjs/stylex";
+import { AuthMenu } from "./AuthMenu";
 
 export default function Header() {
   return (
@@ -20,9 +21,7 @@ export default function Header() {
             <li>
               <Link href="/contact">Contact</Link>
             </li>
-            <li>
-              <Link href="/sign-in">로그인</Link>
-            </li>
+            <AuthMenu />
           </ul>
         </nav>
       </div>
