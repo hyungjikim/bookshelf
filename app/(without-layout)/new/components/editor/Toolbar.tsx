@@ -146,6 +146,7 @@ export default function Toolbar({ editor }: { editor: Editor | null }) {
     <div {...stylex.props(styles.container)}>
       {Items.map((option, index) => (
         <button
+          type="button"
           key={index}
           onClick={option.onClick}
           {...stylex.props(styles.button, option.active && styles.active)}
