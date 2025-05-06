@@ -19,7 +19,7 @@ export default async function Home() {
 
   return (
     <div>
-      <main {...stylex.props(styles.wrpper)}>
+      <main {...stylex.props(styles.wrapper)}>
         <InfiniteBookshelf initialData={mappedBooks} />
       </main>
     </div>
@@ -27,7 +27,7 @@ export default async function Home() {
 }
 
 const styles = stylex.create({
-  wrpper: {
+  wrapper: {
     maxWidth: "700px",
     margin: "0 auto",
     padding: "24px",

@@ -1,24 +1,29 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { Database } from "@/database.types";
-import Cell from "./Cell";
+import { PAGE_SIZE } from "@/app/constants/books";
 import * as stylex from "@stylexjs/stylex";
 
 import { useRouter } from "next/navigation";
-import { useInfiniteBooks } from "../../hooks/useInfiniteBooks";
+import Cell from "./Cell";
+import { fetchMoreBooks } from "../../actions/loadMoreBooks";
+import { Database } from "@/database.types";
 
-type Books = Database["public"]["Tables"]["books"]["Row"];
+type BookUI = Database["public"]["Tables"]["books"]["Row"];
 
 export default function InfiniteBookshelf({
   initialData,
 }: {
-  initialData: Books[];
+  initialData: BookUI[];
 }) {
+  const [books, setBooks] = useState<BookUI[]>(initialData);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isPending, startTransition] = useTransition();
+
   const parentRef = useRef<HTMLDivElement>(null);
-  const { books, hasMore, loading, loadMoreRef } =
-    useInfiniteBooks(initialData);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const rowVirtualizer = useVirtualizer({
     count: hasMore ? books.length + 1 : books.length,
@@ -28,6 +33,41 @@ export default function InfiniteBookshelf({
   });
 
   const router = useRouter();
+
+  useEffect(() => {
+    const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
+
+    if (!lastItem) return;
+
+    const callback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && hasMore && !isPending) {
+          startTransition(async () => {
+            const offset = page * PAGE_SIZE;
+            const moreBooks = await fetchMoreBooks(offset);
+
+            if (moreBooks.length === 0) {
+              setHasMore(false);
+            } else {
+              setBooks((prev) => [...prev, ...moreBooks]);
+              setPage((prev) => prev + 1);
+            }
+
+            observer.unobserve(loadMoreRef.current!);
+          });
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(callback, { threshold: 0.3 });
+    if (loadMoreRef.current) observer.observe(loadMoreRef.current);
+
+    return () => observer.disconnect();
+  }, [books, page, hasMore, isPending, rowVirtualizer]);
+
+  useEffect(() => {
+    setBooks(initialData);
+  }, [initialData]);
 
   return (
     <div
@@ -60,19 +100,15 @@ export default function InfiniteBookshelf({
                 height: `${virtualRow.size}px`,
                 transform: `translateY(${virtualRow.start}px)`,
               }}
-              onClick={() => router.push(`/post/${book.id}`)}
+              onClick={() => book && router.push(`/post/${book.id}`)}
             >
-              {isLoaderRow && hasMore ? (
-                "...loading more"
-              ) : (
-                <Cell book={book} />
-              )}
+              {isLoaderRow ? "...loading more" : <Cell book={book} />}
             </div>
           );
         })}
       </div>
       <div ref={loadMoreRef} style={{ height: 2 }} />
-      {!hasMore && !loading && (
+      {!hasMore && !isPending && (
         <p {...stylex.props(styles.last)}>🎉 끝까지 확인하셨습니다!</p>
       )}
     </div>
