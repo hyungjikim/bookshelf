@@ -8,9 +8,7 @@ import * as stylex from "@stylexjs/stylex";
 import { useRouter } from "next/navigation";
 import Cell from "./Cell";
 import { fetchMoreBooks } from "../../actions/loadMoreBooks";
-import { Database } from "@/database.types";
-
-type BookUI = Database["public"]["Tables"]["books"]["Row"];
+import { BookUI } from "./types";
 
 export default function InfiniteBookshelf({
   initialData,
