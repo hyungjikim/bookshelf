@@ -1,16 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { createClient } from "@/utils/supabase/client";
-import { PAGE_SIZE } from "@/app/constants/books";
 import { Database } from "@/database.types";
 import Cell from "./Cell";
 import * as stylex from "@stylexjs/stylex";
 
 import { useRouter } from "next/navigation";
-import { BOOKS_SELECT } from "@/app/lib/queries/getBooks";
-import { mapToBookUI } from "@/app/utils/mapBooks";
+import { useInfiniteBooks } from "../../hooks/useInfiniteBooks";
 
 type Books = Database["public"]["Tables"]["books"]["Row"];
 
@@ -19,14 +16,9 @@ export default function InfiniteBookshelf({
 }: {
   initialData: Books[];
 }) {
-  const [books, setBooks] = useState<Books[]>(initialData);
-
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
-
   const parentRef = useRef<HTMLDivElement>(null);
-  const loadMoreRef = useRef<HTMLDivElement>(null);
+  const { books, hasMore, loading, loadMoreRef } =
+    useInfiniteBooks(initialData);
 
   const rowVirtualizer = useVirtualizer({
     count: hasMore ? books.length + 1 : books.length,
@@ -36,56 +28,6 @@ export default function InfiniteBookshelf({
   });
 
   const router = useRouter();
-
-  useEffect(() => {
-    setBooks(initialData);
-  }, [initialData]);
-
-  useEffect(() => {
-    const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
-
-    if (!lastItem) return;
-
-    const callback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(async (entry) => {
-        if (
-          entry.isIntersecting &&
-          loadMoreRef.current &&
-          hasMore &&
-          !loading
-        ) {
-          setLoading(true);
-
-          const from = page * PAGE_SIZE;
-          const to = from + PAGE_SIZE - 1;
-
-          const supabase = createClient();
-          const { data: moreBooks } = await supabase
-            .from("book_details")
-            .select(BOOKS_SELECT)
-            .range(from, to);
-
-          const booksToAdd = moreBooks?.map(mapToBookUI) ?? [];
-
-          if (booksToAdd.length === 0) {
-            setHasMore(false);
-          } else {
-            setBooks((prev) => [...prev, ...booksToAdd]);
-            setPage((prev) => prev + 1);
-          }
-
-          setLoading(false);
-          observer.unobserve(loadMoreRef.current);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(callback, { threshold: 0.3 });
-
-    if (loadMoreRef.current) observer.observe(loadMoreRef.current);
-
-    return () => observer.disconnect();
-  }, [hasMore, loading, rowVirtualizer, page]);
 
   return (
     <div
