@@ -13,3 +13,5 @@ type BookDetail = Pick<
 export type BooksListWithJoin = BookDetail & {
   book_id: Book;
 };
+
+export type BookUI = Database["public"]["Tables"]["books"]["Row"];

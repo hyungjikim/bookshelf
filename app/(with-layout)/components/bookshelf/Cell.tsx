@@ -1,9 +1,7 @@
-import { Database } from "@/database.types";
 import * as stylex from "@stylexjs/stylex";
+import { BookUI } from "./types";
 
-type Book = Database["public"]["Tables"]["books"]["Row"];
-
-export default function Cell({ book }: { book: Book }) {
+export default function Cell({ book }: { book: BookUI }) {
   return (
     <div {...stylex.props(styles.container)} data-testid="cell-container">
       <h1 {...stylex.props(styles.title)} data-testid="cell-title">
