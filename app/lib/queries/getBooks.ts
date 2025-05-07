@@ -1,3 +1,7 @@
+import { PAGE_SIZE } from "@/app/constants/books";
+import { adaptBookListToUI } from "@/app/utils/adaptBookListToUI";
+import { createClient } from "@/utils/supabase/server";
+
 /**
  * 책 정보와 관련된 감상문 데이터를 가져오기 위한 SQL SELECT 쿼리 문자열.
  *
@@ -23,3 +27,13 @@ export const BOOKS_SELECT = `
     publisher
   )
 `;
+
+export async function fetchMoreBooks(offset: number) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("book_details")
+    .select(BOOKS_SELECT)
+    .range(offset, offset + PAGE_SIZE - 1);
+
+  return data?.map(adaptBookListToUI) ?? [];
+}
