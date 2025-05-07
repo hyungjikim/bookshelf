@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
-import { BookUI } from "./types";
+import { Book } from "./types";
 
-export default function Cell({ book }: { book: BookUI }) {
+export default function Cell({ book }: { book: Book }) {
   return (
     <div {...stylex.props(styles.container)} data-testid="cell-container">
       <h1 {...stylex.props(styles.title)} data-testid="cell-title">
