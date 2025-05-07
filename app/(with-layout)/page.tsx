@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import InfiniteBookshelf from "./components/bookshelf/InfiniteBookshelf";
-import { fetchMoreBooks } from "./actions/loadMoreBooks";
+import { fetchMoreBooks } from "../lib/queries/getBooks";
 
 export default async function Home() {
   const initialData = await fetchMoreBooks(0);
