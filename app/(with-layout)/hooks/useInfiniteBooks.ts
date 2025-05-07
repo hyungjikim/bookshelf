@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect, useTransition } from "react";
 import { PAGE_SIZE } from "@/app/constants/books";
 import { Book } from "../components/bookshelf/types";
-import { fetchMoreBooks } from "../actions/loadMoreBooks";
+import { createClient } from "@/utils/supabase/client";
+import { BOOKS_SELECT } from "@/app/lib/queries/getBooks";
+import { adaptBookListToUI } from "@/app/utils/adaptBookListToUI";
 
 /**
  * 무한 스크롤을 사용하여 책 데이터를 가져오는 훅
@@ -27,7 +29,14 @@ export function useInfiniteBooks({ initialData }: { initialData: Book[] }) {
         if (entry.isIntersecting && hasMore && !isPending) {
           startTransition(async () => {
             const offset = page * PAGE_SIZE;
-            const moreBooks = await fetchMoreBooks(offset);
+
+            const supabase = createClient();
+            const { data } = await supabase
+              .from("book_details")
+              .select(BOOKS_SELECT)
+              .range(offset, offset + PAGE_SIZE - 1);
+
+            const moreBooks = data?.map(adaptBookListToUI) ?? [];
 
             if (moreBooks.length === 0) {
               setHasMore(false);
