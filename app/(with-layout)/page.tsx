@@ -1,6 +1,18 @@
 import * as stylex from "@stylexjs/stylex";
 import InfiniteBookshelf from "./components/bookshelf/InfiniteBookshelf";
-import { fetchMoreBooks } from "../lib/queries/getBooks";
+import { BOOKS_SELECT } from "../lib/queries/getBooks";
+import { PAGE_SIZE } from "../constants/books";
+import { adaptBookListToUI } from "../utils/adaptBookListToUI";
+import { createClient } from "@/utils/supabase/server";
+
+export async function fetchMoreBooks(offset: number) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("book_details")
+    .select(BOOKS_SELECT)
+    .range(offset, offset + PAGE_SIZE - 1);
+  return data?.map(adaptBookListToUI) ?? [];
+}
 
 export default async function Home() {
   const initialData = await fetchMoreBooks(0);
