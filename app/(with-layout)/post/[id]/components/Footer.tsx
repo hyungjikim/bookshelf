@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { Loader } from "lucide-react";
 import * as stylex from "@stylexjs/stylex";
-import { fetchMoreBooks } from "@/app/lib/queries/getBooks";
+import { fetchMoreBooks } from "@/app/(with-layout)/page";
 
 const LazyHorizontalInfiniteBookshelf = dynamic(
   () => import("./HorizontalInfiniteBookshelf"),
