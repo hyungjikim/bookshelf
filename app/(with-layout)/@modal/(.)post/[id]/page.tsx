@@ -9,6 +9,8 @@ import { Loader } from "lucide-react";
 import * as stylex from "@stylexjs/stylex";
 import { ModalHeaderActions } from "./components/ModalHeaderActions";
 import { WithAuthorOnly } from "../../../post/[id]/components/WithAuthorOnly";
+import { Footer } from "@/app/(with-layout)/post/[id]/components/Footer";
+import { InviewRender } from "@/app/(with-layout)/post/[id]/components/InviewRender";
 
 export default async function Page({
   params,
@@ -38,6 +40,9 @@ export default async function Page({
           <Header id={Number(bookDetail.book_id)} />
         </Suspense>
         <Content body={bookDetail.content} />
+        <InviewRender>
+          <Footer />
+        </InviewRender>
       </BookDetailModal>
     </Overlay>
   );
