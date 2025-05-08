@@ -10,6 +10,19 @@ import { PostActionsControls } from "./components/PostActionsControls";
 import { layoutStyles } from "@/app/styles/layout.styles";
 import { WithAuthorOnly } from "./components/WithAuthorOnly";
 import { Footer } from "./components/Footer";
+import { getBookMetadata } from "./utils/getBookMetadata";
+
+interface Props {
+  params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { id } = await params;
+  const book = await getBookMetadata(Number(id));
+  return {
+    title: book?.title,
+  };
+}
 
 export async function generateStaticParams() {
   /**
@@ -33,11 +46,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function Page({ params }: Props) {
   const { id } = await params;
 
   const { bookDetail, error } = await getBookDetail(Number(id));
