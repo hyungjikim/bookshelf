@@ -10,7 +10,6 @@ import { PostActionsControls } from "./components/PostActionsControls";
 import { layoutStyles } from "@/app/styles/layout.styles";
 import { WithAuthorOnly } from "./components/WithAuthorOnly";
 import { Footer } from "./components/Footer";
-import { InviewRender } from "./components/InviewRender";
 
 export async function generateStaticParams() {
   /**
@@ -66,9 +65,7 @@ export default async function Page({
         <div {...stylex.props(styles.contentWrapper)}>
           <Content body={bookDetail.content} />
         </div>
-        <InviewRender>
-          <Footer />
-        </InviewRender>
+        <Footer />
       </section>
     </main>
   );

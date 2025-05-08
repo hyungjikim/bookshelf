@@ -1,22 +1,15 @@
-import dynamic from "next/dynamic";
-import { Loader } from "lucide-react";
 import * as stylex from "@stylexjs/stylex";
 import { fetchMoreBooks } from "@/app/(with-layout)/page";
-
-const LazyHorizontalInfiniteBookshelf = dynamic(
-  () => import("./HorizontalInfiniteBookshelf"),
-  {
-    loading: () => <Loader />,
-  }
-);
+import { InviewRender } from "./InviewRender";
+import HorizontalInfiniteBookshelf from "./HorizontalInfiniteBookshelf";
 
 export async function Footer() {
   const initialData = await fetchMoreBooks(0);
   return (
-    <div>
+    <InviewRender>
       <h4 {...stylex.props(styles.h4)}>🔎 다른 책도 살펴보세요</h4>
-      <LazyHorizontalInfiniteBookshelf initialData={initialData} />
-    </div>
+      <HorizontalInfiniteBookshelf initialData={initialData} />
+    </InviewRender>
   );
 }
 
