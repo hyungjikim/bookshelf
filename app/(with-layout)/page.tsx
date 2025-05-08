@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import InfiniteBookshelf from "./components/bookshelf/InfiniteBookshelf";
-import { BOOKS_SELECT } from "../lib/queries/getBooks";
+import { BOOKS_SELECT } from "../lib/queries/getBooksSelect";
 import { PAGE_SIZE } from "../constants/books";
 import { adaptBookListToUI } from "../utils/adaptBookListToUI";
 import { createClient } from "@/utils/supabase/server";
