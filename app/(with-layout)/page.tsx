@@ -5,7 +5,7 @@ import { PAGE_SIZE } from "../constants/books";
 import { adaptBookListToUI } from "../utils/adaptBookListToUI";
 import { createClient } from "@/utils/supabase/server";
 
-export async function fetchMoreBooks(offset: number) {
+async function fetchMoreBooks(offset: number) {
   const supabase = await createClient();
   const { data } = await supabase
     .from("book_details")
