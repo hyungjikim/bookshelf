@@ -1,4 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
+import { tokens } from "./tokens.stylex";
 
 export const formStyles = stylex.create({
   container: {
@@ -9,5 +10,19 @@ export const formStyles = stylex.create({
     borderRadius: "12px",
     display: "grid",
     gap: "12px",
+  },
+  button: {
+    inset: "unset",
+    backgroundColor: {
+      default: tokens.primary,
+      ":hover": tokens.tertiary,
+    },
+    borderRadius: "6px",
+    padding: "6px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    border: `1px solid ${tokens.dark}`,
+    cursor: "pointer",
   },
 });
