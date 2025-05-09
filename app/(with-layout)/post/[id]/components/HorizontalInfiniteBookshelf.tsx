@@ -83,6 +83,7 @@ const styles = stylex.create({
     maxWidth: "600px",
     height: "140px",
     overflow: "auto",
+    padding: "12px",
   },
   loader: {
     height: "100%",
