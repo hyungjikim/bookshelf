@@ -1,6 +1,8 @@
 "use client";
 
 import { PostActions } from "@/app/(with-layout)/post/[id]/components/PostActions";
+import { buttonStyles } from "@/app/styles/form.styles";
+import { tokens } from "@/app/styles/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -18,9 +20,12 @@ export function ModalHeaderActions({ id, isAuthor }: ModalHeaderActionsProps) {
   const router = useRouter();
 
   return (
-    <div {...stylex.props(styles.buttonWrapper)}>
+    <div {...stylex.props(styles.wrapper)}>
       <PostActions id={id} isAuthor={isAuthor} />
-      <button onClick={() => router.back()}>
+      <button
+        onClick={() => router.back()}
+        {...stylex.props(buttonStyles.button, styles.customButton)}
+      >
         <X />
       </button>
     </div>
@@ -28,13 +33,19 @@ export function ModalHeaderActions({ id, isAuthor }: ModalHeaderActionsProps) {
 }
 
 const styles = stylex.create({
-  buttonWrapper: {
+  wrapper: {
     position: "sticky",
     top: 0,
     display: "flex",
     justifyContent: "end",
     gap: "8px",
     padding: "8px",
-    backgroundColor: "white",
+    backgroundColor: "#fff",
+  },
+  customButton: {
+    backgroundColor: {
+      default: tokens.white,
+      ":hover": tokens.primary,
+    },
   },
 });
