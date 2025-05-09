@@ -25,7 +25,7 @@ export function PostActionsLayout({
 const styles = stylex.create({
   container: {
     position: "absolute",
-    top: "44px",
+    top: "48px",
   },
   ul: {
     listStyleType: "none",
