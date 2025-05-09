@@ -5,6 +5,9 @@ import { useState } from "react";
 import { EditLinkItem } from "./EditLinkItem";
 import { DeleteDialog } from "./DeleteDialog";
 import { PostActionsLayout } from "./PostActionsLayout";
+import * as stylex from "@stylexjs/stylex";
+import { buttonStyles } from "@/app/styles/form.styles";
+import { tokens } from "@/app/styles/tokens.stylex";
 
 interface PostActionsProps {
   /** 액션이 필요한 게시물의 id */
@@ -21,7 +24,10 @@ export function PostActions({ id, isAuthor }: PostActionsProps) {
   return (
     <>
       {isAuthor && (
-        <button onClick={() => setIsVisible((prev) => !prev)}>
+        <button
+          onClick={() => setIsVisible((prev) => !prev)}
+          {...stylex.props(buttonStyles.button, styles.customButton)}
+        >
           <Menu />
         </button>
       )}
@@ -34,3 +40,9 @@ export function PostActions({ id, isAuthor }: PostActionsProps) {
     </>
   );
 }
+
+const styles = stylex.create({
+  customButton: {
+    backgroundColor: tokens.white,
+  },
+});
