@@ -10,6 +10,7 @@ import * as stylex from "@stylexjs/stylex";
 import { ModalHeaderActions } from "./components/ModalHeaderActions";
 import { WithAuthorOnly } from "../../../post/[id]/components/WithAuthorOnly";
 import { Footer } from "@/app/(with-layout)/post/[id]/components/Footer";
+import { CreatedBy } from "@/app/(with-layout)/post/[id]/components/CreatedBy";
 
 export default async function Page({
   params,
@@ -38,6 +39,7 @@ export default async function Page({
         >
           <Header id={Number(bookDetail.book_id)} />
         </Suspense>
+        {bookDetail.user_name && <CreatedBy name={bookDetail.user_name} />}
         <Content body={bookDetail.content} />
         <Footer />
       </BookDetailModal>

@@ -11,6 +11,7 @@ import { layoutStyles } from "@/app/styles/layout.styles";
 import { WithAuthorOnly } from "./components/WithAuthorOnly";
 import { Footer } from "./components/Footer";
 import { getBookMetadata } from "./utils/getBookMetadata";
+import { CreatedBy } from "./components/CreatedBy";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -72,6 +73,7 @@ export default async function Page({ params }: Props) {
           <Header id={Number(bookDetail.book_id)} />
         </Suspense>
         <div {...stylex.props(styles.contentWrapper)}>
+          {bookDetail.user_name && <CreatedBy name={bookDetail.user_name} />}
           <Content body={bookDetail.content} />
         </div>
         <Footer />
@@ -83,5 +85,7 @@ export default async function Page({ params }: Props) {
 const styles = stylex.create({
   contentWrapper: {
     marginTop: "12px",
+    display: "grid",
+    rowGap: "8px",
   },
 });
