@@ -25,6 +25,7 @@ export default function InfiniteBookshelf({
     getScrollElement: () => parentRef.current,
     estimateSize: () => 120,
     overscan: 2,
+    gap: 12,
   });
 
   return (
@@ -53,7 +54,7 @@ export default function InfiniteBookshelf({
               }}
             >
               {isLoaderRow ? (
-                "...loading more"
+                <p {...stylex.props(styles.loader)}>📚책을 불러오고 있어요</p>
               ) : (
                 <Link href={`/post/${book.id}`}>
                   <Cell book={book} />
@@ -73,15 +74,19 @@ export default function InfiniteBookshelf({
 
 const styles = stylex.create({
   parent: {
-    height: "500px",
+    // height: "80vh",
     width: "100%",
     overflow: "auto",
+    padding: "12px",
   },
-  last: {
-    fontStyle: "italic",
+  loader: {
     textAlign: "center",
   },
   sentinel: {
     height: "2px",
+  },
+  last: {
+    fontStyle: "italic",
+    textAlign: "center",
   },
 });
