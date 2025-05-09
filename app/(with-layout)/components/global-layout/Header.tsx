@@ -4,7 +4,7 @@ import * as stylex from "@stylexjs/stylex";
 import { createClient } from "@/utils/supabase/server";
 import { LogOut, SquarePen } from "lucide-react";
 import { signOut } from "@/app/actions/auth";
-import { formStyles } from "@/app/styles/form.styles";
+import { buttonStyles } from "@/app/styles/form.styles";
 import { tokens, zIndex } from "@/app/styles/tokens.stylex";
 
 const PROJECT_REPO_URL = "https://github.com/hyungjikim/bookshelf";
@@ -56,7 +56,9 @@ export default async function Header() {
         {user ? (
           <li {...stylex.props(styles.li)}>
             <form action={signOut}>
-              <button {...stylex.props(formStyles.button, styles.customButton)}>
+              <button
+                {...stylex.props(buttonStyles.button, styles.customButton)}
+              >
                 <LogOut /> 로그아웃
               </button>
             </form>

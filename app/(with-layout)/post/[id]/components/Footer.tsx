@@ -18,16 +18,23 @@ async function fetchMoreBooks(offset: number) {
 export async function Footer() {
   const initialData = await fetchMoreBooks(0);
   return (
-    <InviewRender>
-      <h4 {...stylex.props(styles.h4)}>🔎 다른 책도 살펴보세요</h4>
-      <HorizontalInfiniteBookshelf initialData={initialData} />
-    </InviewRender>
+    <div {...stylex.props(styles.container)}>
+      <InviewRender>
+        <h4 {...stylex.props(styles.h4)}>🔎 다른 책도 살펴보세요</h4>
+        <HorizontalInfiniteBookshelf initialData={initialData} />
+      </InviewRender>
+    </div>
   );
 }
 
 const styles = stylex.create({
+  container: {
+    marginTop: "36px",
+    paddingBottom: "36px",
+  },
   h4: {
-    marginBottom: "12px",
+    marginBottom: "36px",
     textAlign: "center",
+    fontSize: "1.1rem",
   },
 });
