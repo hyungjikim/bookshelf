@@ -25,7 +25,13 @@ export default async function Header() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image src="/tango.webp" alt="Logo" width={64} height={64} />
+            <Image
+              src="/tango.webp"
+              alt="Logo"
+              width={64}
+              height={64}
+              {...stylex.props(styles.logo)}
+            />
           </a>
         </div>
         <nav {...stylex.props(styles.nav)}>
@@ -77,6 +83,9 @@ const styles = stylex.create({
     justifyContent: "space-around",
     padding: "12px 24px",
     gap: "24px",
+  },
+  logo: {
+    borderRadius: "50%",
   },
   nav: {
     flex: 1,
