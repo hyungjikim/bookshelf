@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Header from "../components/Header";
+import Header from "./components/global-layout/Header";
 
 export default function Layout({
   modal,
