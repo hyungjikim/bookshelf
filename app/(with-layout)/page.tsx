@@ -21,11 +21,9 @@ export default async function Home() {
     return <p {...stylex.props(styles.noBooks)}>📖 아직 추가된 책이 없어요!</p>;
 
   return (
-    <div>
-      <main {...stylex.props(styles.wrapper)}>
-        <InfiniteBookshelf initialData={initialData} />
-      </main>
-    </div>
+    <main {...stylex.props(styles.wrapper)}>
+      <InfiniteBookshelf initialData={initialData} />
+    </main>
   );
 }
 
