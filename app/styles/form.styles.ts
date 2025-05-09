@@ -22,7 +22,28 @@ export const formStyles = stylex.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    border: `1px solid ${tokens.dark}`,
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: tokens.dark,
+    cursor: "pointer",
+  },
+});
+
+export const buttonStyles = stylex.create({
+  button: {
+    inset: "unset",
+    backgroundColor: {
+      default: tokens.primary,
+      ":hover": tokens.tertiary,
+    },
+    borderRadius: "6px",
+    padding: "6px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: tokens.dark,
     cursor: "pointer",
   },
 });

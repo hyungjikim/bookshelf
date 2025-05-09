@@ -4,12 +4,8 @@ export const layoutStyles = stylex.create({
   container: {
     margin: "0 auto",
     maxWidth: "760px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    border: "1px solid #eee",
-    padding: "12px",
-    borderRadius: "12px",
+    padding: "24px",
+    height: "calc(100vh - 100px)",
   },
   section: {
     width: "100%",
