@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { LogOut, SquarePen } from "lucide-react";
 import { signOut } from "@/app/actions/auth";
 import { formStyles } from "@/app/styles/form.styles";
-import { tokens } from "@/app/styles/tokens.stylex";
+import { tokens, zIndex } from "@/app/styles/tokens.stylex";
 
 const PROJECT_REPO_URL = "https://github.com/hyungjikim/bookshelf";
 
@@ -17,7 +17,7 @@ export default async function Header() {
   } = await supabase.auth.getUser();
 
   return (
-    <header>
+    <header {...stylex.props(styles.stickyHeader)}>
       <div {...stylex.props(styles.wrapper)}>
         <div>
           <a
@@ -66,6 +66,12 @@ export default async function Header() {
 }
 
 const styles = stylex.create({
+  stickyHeader: {
+    position: "sticky",
+    top: 0,
+    zIndex: zIndex.header,
+    backgroundColor: tokens.white,
+  },
   wrapper: {
     display: "flex",
     justifyContent: "space-around",
@@ -94,5 +100,6 @@ const styles = stylex.create({
       default: "transparent",
       ":hover": tokens.tertiary,
     },
+    whiteSpace: "nowrap",
   },
 });
