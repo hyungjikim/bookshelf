@@ -1,32 +1,47 @@
 import * as stylex from "@stylexjs/stylex";
 import { Book } from "./types";
+import { ChevronRight } from "lucide-react";
+import { tokens } from "@/app/styles/tokens.stylex";
 
 export default function Cell({ book }: { book: Book }) {
   return (
     <div {...stylex.props(styles.container)} data-testid="cell-container">
-      <h1 {...stylex.props(styles.title)} data-testid="cell-title">
-        {book.title}
-      </h1>
-      <p
-        {...stylex.props(styles.desc, styles.author)}
-        data-testid="cell-author"
-      >
-        {book.author}
-      </p>
-      <p
-        {...stylex.props(styles.desc, styles.publisher)}
-        data-testid="cell-publisher"
-      >
-        {book.publisher}
-      </p>
+      <div {...stylex.props(styles.bookInfo)}>
+        <h1 {...stylex.props(styles.title)} data-testid="cell-title">
+          {book.title}
+        </h1>
+
+        {book.author && (
+          <p
+            {...stylex.props(styles.desc, styles.author)}
+            data-testid="cell-author"
+          >
+            {book.author}
+          </p>
+        )}
+
+        {book.publisher && (
+          <p
+            {...stylex.props(styles.desc, styles.publisher)}
+            data-testid="cell-publisher"
+          >
+            {book.publisher}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <ChevronRight />
+      </div>
     </div>
   );
 }
 
 const styles = stylex.create({
   container: {
-    display: "grid",
-    gap: "4px",
+    display: "flex",
+    width: "100%",
+    alignItems: "center",
     backgroundColor: "#fff",
     padding: "16px",
     borderRadius: "12px",
@@ -36,11 +51,22 @@ const styles = stylex.create({
       transform: "translateY(-4px)",
     },
   },
+  bookInfo: {
+    flex: 1,
+    display: "grid",
+  },
   title: {
     fontSize: "1.1rem",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    color: tokens.text,
   },
   desc: {
     fontSize: "0.9rem",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
   },
   author: {
     color: "#888",
