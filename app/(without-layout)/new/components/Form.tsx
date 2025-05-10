@@ -7,8 +7,12 @@ import Form from "next/form";
 import { publish } from "../actions";
 import { PublishState } from "../types";
 import EditorWrapper from "./editor/Tiptap";
-import { buttonStyles, formStyles } from "@/app/styles/form.styles";
-import { tokens } from "@/app/styles/tokens.stylex";
+import {
+  buttonStyles,
+  formStyles,
+  inputStyles,
+  labelStyles,
+} from "@/app/styles/form.styles";
 
 export function PublishForm() {
   const [state, formAction, pending] = useActionState<PublishState, FormData>(
@@ -21,7 +25,7 @@ export function PublishForm() {
   return (
     <Form action={formAction} {...stylex.props(formStyles.container)}>
       <div>
-        <label htmlFor="title" {...stylex.props(styles.label)}>
+        <label htmlFor="title" {...stylex.props(labelStyles.label)}>
           책 제목
         </label>
         <input
@@ -31,29 +35,29 @@ export function PublishForm() {
           defaultValue={state?.title}
           autoFocus
           placeholder="책 제목을 입력해주세요"
-          {...stylex.props(styles.input)}
+          {...stylex.props(inputStyles.input)}
         />
       </div>
       <div>
-        <label htmlFor="author" {...stylex.props(styles.label)}>
+        <label htmlFor="author" {...stylex.props(labelStyles.label)}>
           작가 이름
         </label>
         <input
           id="author"
           name="author"
           defaultValue={state?.author}
-          {...stylex.props(styles.input)}
+          {...stylex.props(inputStyles.input)}
         />
       </div>
       <div>
-        <label htmlFor="publisher" {...stylex.props(styles.label)}>
+        <label htmlFor="publisher" {...stylex.props(labelStyles.label)}>
           출판사
         </label>
         <input
           id="publisher"
           name="publisher"
           defaultValue={state?.publisher}
-          {...stylex.props(styles.input)}
+          {...stylex.props(inputStyles.input)}
         />
       </div>
 
@@ -76,21 +80,6 @@ export function PublishForm() {
 }
 
 const styles = stylex.create({
-  label: {
-    display: "block",
-    marginBottom: "4px",
-    fontSzie: "1.1rem",
-  },
-  input: {
-    height: "36px",
-    width: "100%",
-    maxWidth: "400px",
-    padding: "4px",
-    borderRadius: "6px",
-    borderColor: tokens.dark,
-    borderWidth: "1px",
-    fontSize: "1.1rem",
-  },
   customButton: {
     height: "36px",
   },
