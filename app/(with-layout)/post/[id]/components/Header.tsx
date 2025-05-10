@@ -17,9 +17,9 @@ export async function Header({ id }: { id: number }) {
   return (
     <div {...stylex.props(styles.container)}>
       <h2 {...stylex.props(styles.h2)}>{title}</h2>
-      <p>{author && `${author} 지음`}</p>
-      <p>{author && publisher && " / "}</p>
-      <p>{publisher && `${publisher} 출판`}</p>
+      <span>{author && `${author} 지음`}</span>
+      <span>{author && publisher && " / "}</span>
+      <span>{publisher && `${publisher} 출판`}</span>
     </div>
   );
 }
