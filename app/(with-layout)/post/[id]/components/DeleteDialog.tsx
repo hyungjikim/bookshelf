@@ -1,7 +1,9 @@
 "use client";
 
 import { deleteContent } from "@/app/actions/deleteContent";
+import { buttonStyles } from "@/app/styles/form.styles";
 import { listItemStyles } from "@/app/styles/listItem.styles";
+import { tokens } from "@/app/styles/tokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 import { Trash2 } from "lucide-react";
 import { useActionState, useRef } from "react";
@@ -29,7 +31,7 @@ export function DeleteDialog({ id }: { id: number }) {
         <ul {...stylex.props(styles.ul)}>
           <li {...stylex.props(styles.confirmLi)}>
             <button
-              {...stylex.props(styles.confirmButton)}
+              {...stylex.props(buttonStyles.button, styles.customButton)}
               onClick={() => ref.current?.close()}
             >
               취소
@@ -39,7 +41,11 @@ export function DeleteDialog({ id }: { id: number }) {
             <form>
               <input type="hidden" name="id" value={id} readOnly />
               <button
-                {...stylex.props(styles.confirmButton)}
+                {...stylex.props(
+                  buttonStyles.button,
+                  styles.customButton,
+                  styles.confirmDeleteButton
+                )}
                 formAction={formAction}
               >
                 삭제
@@ -75,7 +81,7 @@ const styles = stylex.create({
     minWidth: "300px",
     padding: "12px",
     borderRadius: "12px",
-    borderColor: "#ccc",
+    borderColor: tokens.dark,
   },
   p: { textAlign: "center", fontWeight: "bold" },
   ul: {
@@ -85,9 +91,18 @@ const styles = stylex.create({
     listStyleType: "none",
     marginTop: "12px",
   },
-  confirmButton: {
+  customButton: {
     display: "block",
     width: "100%",
+  },
+  confirmDeleteButton: {
+    backgroundColor: tokens.white,
+    borderColor: tokens.danger,
+    color: tokens.danger,
+    opacity: {
+      default: 1,
+      ":hover": 0.6,
+    },
   },
   confirmLi: {
     width: "100%",
@@ -95,7 +110,7 @@ const styles = stylex.create({
   message: {
     marginTop: "8px",
     textAlign: "center",
-    color: "red",
+    color: tokens.danger,
     fontSize: "14px",
   },
 });
