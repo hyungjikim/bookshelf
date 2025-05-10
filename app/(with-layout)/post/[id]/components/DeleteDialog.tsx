@@ -94,6 +94,7 @@ const styles = stylex.create({
   customButton: {
     display: "block",
     width: "100%",
+    height: "36px",
   },
   confirmDeleteButton: {
     backgroundColor: tokens.white,
