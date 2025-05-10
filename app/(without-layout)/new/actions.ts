@@ -19,7 +19,7 @@ export async function publish(_prevState: PublishState, formData: FormData) {
 
   const userId = user?.id;
 
-  if (!userId) {
+  if (!userId || !title || !content) {
     return {
       message: "글을 작성할 수 없습니다.",
       title: title as string,
