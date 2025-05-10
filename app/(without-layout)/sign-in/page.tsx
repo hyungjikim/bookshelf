@@ -7,6 +7,7 @@ import { useActionState } from "react";
 import { State } from "./types";
 import * as stylex from "@stylexjs/stylex";
 import { layoutStyles } from "@/app/styles/layout.styles";
+import { formStyles } from "@/app/styles/form.styles";
 
 const initialState = {
   fieldError: {},
@@ -25,7 +26,7 @@ export default function SignInPage() {
   return (
     <main {...stylex.props(layoutStyles.main)}>
       <section {...stylex.props(layoutStyles.section)}>
-        <Form action={formAction}>
+        <Form action={formAction} {...stylex.props(formStyles.form)}>
           <div>
             <label htmlFor="email">이메일</label>
             <input

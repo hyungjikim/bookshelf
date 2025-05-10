@@ -27,7 +27,7 @@ export function EditForm({ defaultValue, id }: EditFormProps) {
   const [content, setContent] = useState(defaultValue);
 
   return (
-    <Form action={formAction} {...stylex.props(formStyles.container)}>
+    <Form action={formAction} {...stylex.props(formStyles.form)}>
       <input type="hidden" name="id" value={id} />
 
       <EditorWrapper value={content} onChange={setContent} />
