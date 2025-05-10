@@ -14,31 +14,18 @@ import {
 } from "lucide-react";
 import { Editor } from "@tiptap/react";
 import * as stylex from "@stylexjs/stylex";
-import { ReactElement, useState } from "react";
-
-type ToolbarItem =
-  | "heading1"
-  | "heading2"
-  | "heading3"
-  | "bold"
-  | "italic"
-  | "strike"
-  | "alignLeft"
-  | "alignCenter"
-  | "alignRight"
-  | "list"
-  | "orderedList"
-  | "highlight";
+import { ReactElement } from "react";
+import { buttonStyles } from "@/app/styles/form.styles";
+import { tokens } from "@/app/styles/tokens.stylex";
 
 interface Items {
   icon: ReactElement;
-  onClick: () => void;
-  active: boolean;
+  title: string;
+  command: () => void;
+  isActive: boolean;
 }
 
 export default function Toolbar({ editor }: { editor: Editor | null }) {
-  const [activeButton, setActiveButton] = useState<ToolbarItem | null>(null);
-
   if (!editor) {
     return null;
   }
@@ -46,99 +33,75 @@ export default function Toolbar({ editor }: { editor: Editor | null }) {
   const Items: Items[] = [
     {
       icon: <Heading1 />,
-      onClick: () => {
-        editor.chain().focus().toggleHeading({ level: 1 }).run();
-        setActiveButton("heading1");
-      },
-      active: activeButton === "heading1",
+      title: "제목 1",
+      command: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
+      isActive: editor.isActive("heading", { level: 1 }),
     },
     {
       icon: <Heading2 />,
-      onClick: () => {
-        editor.chain().focus().toggleHeading({ level: 2 }).run();
-        setActiveButton("heading2");
-      },
-      active: activeButton === "heading2",
+      title: "제목 2",
+      command: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+      isActive: editor.isActive("heading", { level: 2 }),
     },
     {
       icon: <Heading3 />,
-      onClick: () => {
-        editor.chain().focus().toggleHeading({ level: 3 }).run();
-        setActiveButton("heading3");
-      },
-      active: activeButton === "heading3",
+      title: "제목 3",
+      command: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+      isActive: editor.isActive("heading", { level: 3 }),
     },
     {
       icon: <Bold />,
-      onClick: () => {
-        editor.chain().focus().toggleBold().run();
-        setActiveButton("bold");
-      },
-      active: activeButton === "bold",
+      title: "굵게",
+      command: () => editor.chain().focus().toggleBold().run(),
+      isActive: editor.isActive("bold"),
     },
     {
       icon: <Italic />,
-      onClick: () => {
-        editor.chain().focus().toggleItalic().run();
-        setActiveButton("italic");
-      },
-      active: activeButton === "italic",
+      title: "기울임꼴",
+      command: () => editor.chain().focus().toggleItalic().run(),
+      isActive: editor.isActive("italic"),
     },
     {
       icon: <Strikethrough />,
-      onClick: () => {
-        editor.chain().focus().toggleStrike().run();
-        setActiveButton("strike");
-      },
-      active: activeButton === "strike",
-    },
-    {
-      icon: <AlignLeft />,
-      onClick: () => {
-        editor.chain().focus().setTextAlign("left").run();
-        setActiveButton("alignLeft");
-      },
-      active: activeButton === "alignLeft",
-    },
-    {
-      icon: <AlignCenter />,
-      onClick: () => {
-        editor.chain().focus().setTextAlign("center").run();
-        setActiveButton("alignCenter");
-      },
-      active: activeButton === "alignCenter",
-    },
-    {
-      icon: <AlignRight />,
-      onClick: () => {
-        editor.chain().focus().setTextAlign("right").run();
-        setActiveButton("alignRight");
-      },
-      active: activeButton === "alignRight",
+      title: "취소선",
+      command: () => editor.chain().focus().toggleStrike().run(),
+      isActive: editor.isActive("strike"),
     },
     {
       icon: <List />,
-      onClick: () => {
-        editor.chain().focus().toggleBulletList().run();
-        setActiveButton("list");
-      },
-      active: activeButton === "list",
+      title: "글머리 기호",
+      command: () => editor.chain().focus().toggleBulletList().run(),
+      isActive: editor.isActive("bulletList"),
     },
     {
       icon: <ListOrdered />,
-      onClick: () => {
-        editor.chain().focus().toggleOrderedList().run();
-        setActiveButton("orderedList");
-      },
-      active: activeButton === "orderedList",
+      title: "번호 매기기",
+      command: () => editor.chain().focus().toggleOrderedList().run(),
+      isActive: editor.isActive("orderedList"),
+    },
+    {
+      icon: <AlignLeft />,
+      title: "왼쪽 정렬",
+      command: () => editor.chain().focus().setTextAlign("left").run(),
+      isActive: editor.isActive({ textAlign: "left" }),
+    },
+    {
+      icon: <AlignCenter />,
+      title: "가운데 정렬",
+      command: () => editor.chain().focus().setTextAlign("center").run(),
+      isActive: editor.isActive({ textAlign: "center" }),
+    },
+    {
+      icon: <AlignRight />,
+      title: "오른쪽 정렬",
+      command: () => editor.chain().focus().setTextAlign("right").run(),
+      isActive: editor.isActive({ textAlign: "right" }),
     },
     {
       icon: <Highlighter />,
-      onClick: () => {
-        editor.chain().focus().toggleHighlight().run();
-        setActiveButton("highlight");
-      },
-      active: activeButton === "highlight",
+      title: "형광펜",
+      command: () => editor.chain().focus().toggleHighlight().run(),
+      isActive: editor.isActive("highlight"),
     },
   ] as const;
 
@@ -148,8 +111,12 @@ export default function Toolbar({ editor }: { editor: Editor | null }) {
         <button
           type="button"
           key={index}
-          onClick={option.onClick}
-          {...stylex.props(styles.button, option.active && styles.active)}
+          title={option.title}
+          onClick={option.command}
+          {...stylex.props(
+            buttonStyles.button,
+            option.isActive && styles.active
+          )}
         >
           {option.icon}
         </button>
@@ -163,12 +130,10 @@ const styles = stylex.create({
     display: "flex",
     flexWrap: "wrap",
     gap: "6px",
-    justifyContent: "stretch",
-  },
-  button: {
-    borderRadius: "4px",
+    justifyContent: "center",
+    margin: "12px 0",
   },
   active: {
-    backgroundColor: "#ccc",
+    backgroundColor: tokens.dark,
   },
 });
