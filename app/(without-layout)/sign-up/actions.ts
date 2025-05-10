@@ -3,10 +3,11 @@
 import { createClient } from "@/utils/supabase/server";
 import { z } from "zod";
 import { State } from "./types";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
-export async function signUp(_prevState: State, formData: FormData) {
+export async function signUp(
+  _prevState: State | undefined,
+  formData: FormData
+) {
   const supabase = await createClient();
 
   const schema = z.object({
@@ -30,6 +31,7 @@ export async function signUp(_prevState: State, formData: FormData) {
     return {
       fieldError: validatedFields.error.flatten().fieldErrors,
       inputs: rawData,
+      success: false,
     };
   }
 
@@ -43,15 +45,21 @@ export async function signUp(_prevState: State, formData: FormData) {
     },
   };
 
-  const { error } = await supabase.auth.signUp(info);
+  const { data, error } = await supabase.auth.signUp(info);
 
   if (error) {
     return {
-      globalError: "회원가입에 실패했습니다. 다시 시도해주세요",
+      globalMessage: "회원가입에 실패했습니다. 다시 시도해주세요",
       inputs: rawData,
+      success: false,
     };
   }
 
-  revalidatePath("/", "layout");
-  redirect("/");
+  if (data.user?.confirmation_sent_at) {
+    return {
+      globalMessage: `${rawData.email} 로 가입 확인 메일을 보내드렸으니 확인해 주세요!`,
+      inputs: rawData,
+      success: true,
+    };
+  }
 }
