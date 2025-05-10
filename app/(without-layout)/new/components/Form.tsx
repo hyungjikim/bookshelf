@@ -35,7 +35,7 @@ export function PublishForm() {
           defaultValue={state?.title}
           autoFocus
           placeholder="책 제목을 입력해주세요"
-          {...stylex.props(inputStyles.input)}
+          {...stylex.props(inputStyles.input, styles.customInput)}
         />
       </div>
       <div>
@@ -46,7 +46,7 @@ export function PublishForm() {
           id="author"
           name="author"
           defaultValue={state?.author}
-          {...stylex.props(inputStyles.input)}
+          {...stylex.props(inputStyles.input, styles.customInput)}
         />
       </div>
       <div>
@@ -57,7 +57,7 @@ export function PublishForm() {
           id="publisher"
           name="publisher"
           defaultValue={state?.publisher}
-          {...stylex.props(inputStyles.input)}
+          {...stylex.props(inputStyles.input, styles.customInput)}
         />
       </div>
 
@@ -80,6 +80,7 @@ export function PublishForm() {
 }
 
 const styles = stylex.create({
+  customInput: { maxWidth: "400px" },
   customButton: {
     height: "36px",
   },

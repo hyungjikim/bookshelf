@@ -44,7 +44,6 @@ export const inputStyles = stylex.create({
   input: {
     height: "36px",
     width: "100%",
-    maxWidth: "400px",
     padding: "4px",
     borderRadius: "6px",
     borderColor: tokens.dark,
