@@ -34,6 +34,16 @@ a {
   text-decoration: none;
 }
 
+/* tiptap 에디터*/
+.tiptap {
+  min-height: 200px;
+  padding: 16px;
+
+  @container editor (max-width: 400px) {
+    padding: 8px;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
