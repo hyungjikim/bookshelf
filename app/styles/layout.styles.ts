@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 export const layoutStyles = stylex.create({
-  container: {
+  main: {
     margin: "0 auto",
     maxWidth: "760px",
     padding: "24px",

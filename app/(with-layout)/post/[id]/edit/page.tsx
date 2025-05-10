@@ -21,7 +21,7 @@ export default async function Page({
   }
 
   return (
-    <main {...stylex.props(layoutStyles.container)}>
+    <main {...stylex.props(layoutStyles.main)}>
       <section {...stylex.props(layoutStyles.section)}>
         <Suspense
           fallback={
