@@ -23,7 +23,7 @@ export function PublishForm() {
   const [content, setContent] = useState("");
 
   return (
-    <Form action={formAction} {...stylex.props(formStyles.container)}>
+    <Form action={formAction} {...stylex.props(formStyles.form)}>
       <div>
         <label htmlFor="title" {...stylex.props(labelStyles.label)}>
           책 제목

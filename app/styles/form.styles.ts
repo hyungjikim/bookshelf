@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import { tokens } from "./tokens.stylex";
 
 export const formStyles = stylex.create({
-  container: {
+  form: {
     maxWidth: "90vw",
     margin: "24px auto",
     border: "1px solid #ccc",
