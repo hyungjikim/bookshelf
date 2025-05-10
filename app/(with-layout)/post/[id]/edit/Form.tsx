@@ -7,7 +7,7 @@ import Form from "next/form";
 import EditorWrapper from "@/app/(without-layout)/new/components/editor/Tiptap";
 import { update } from "./actions";
 import { EditState } from "./types";
-import { formStyles } from "@/app/styles/form.styles";
+import { buttonStyles, formStyles } from "@/app/styles/form.styles";
 
 interface EditFormProps {
   /** 수정할 게시물의 id (dynamic segment) */
@@ -39,9 +39,19 @@ export function EditForm({ defaultValue, id }: EditFormProps) {
         </p>
       )}
 
-      <button type="submit" disabled={pending}>
+      <button
+        type="submit"
+        disabled={pending || !content}
+        {...stylex.props(buttonStyles.button, styles.customButton)}
+      >
         수정하기
       </button>
     </Form>
   );
 }
+
+const styles = stylex.create({
+  customButton: {
+    height: "36px",
+  },
+});
