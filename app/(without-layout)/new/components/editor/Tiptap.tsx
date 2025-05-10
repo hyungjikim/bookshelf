@@ -3,6 +3,8 @@ import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 import Toolbar from "./Toolbar";
+import { LoaderCircle } from "lucide-react";
+import * as stylex from "@stylexjs/stylex";
 
 type Props = {
   value: string;
@@ -23,10 +25,34 @@ export default function EditorWrapper({ value, onChange }: Props) {
     immediatelyRender: false,
   });
 
+  if (!editor)
+    return (
+      <div {...stylex.props(styles.loaderContainer)}>
+        <LoaderCircle />
+        <p>에디터를 불러오고 있어요</p>
+      </div>
+    );
+
   return (
     <>
-      <Toolbar editor={editor} />
-      <EditorContent editor={editor} />
+      <div {...stylex.props(styles.editorContainer)}>
+        <Toolbar editor={editor} />
+        <EditorContent editor={editor} />
+      </div>
     </>
   );
 }
+
+const styles = stylex.create({
+  loaderContainer: {
+    minHeight: "320px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "6px",
+  },
+  editorContainer: {
+    container: "editor / inline-size",
+    maxWidth: "100%",
+  },
+});
