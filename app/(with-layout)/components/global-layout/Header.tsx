@@ -59,7 +59,10 @@ export default async function Header() {
               <button
                 {...stylex.props(buttonStyles.button, styles.customButton)}
               >
-                <LogOut /> 로그아웃
+                <LogOut {...stylex.props(styles.customoButtonIcon)} />
+                <span {...stylex.props(styles.customButtonInnerText)}>
+                  로그아웃
+                </span>
               </button>
             </form>
           </li>
@@ -79,6 +82,7 @@ const styles = stylex.create({
     top: 0,
     zIndex: zIndex.header,
     backgroundColor: tokens.white,
+    container: "globalHeader / inline-size",
   },
   wrapper: {
     display: "flex",
@@ -88,6 +92,14 @@ const styles = stylex.create({
   },
   logo: {
     borderRadius: "50%",
+    width: {
+      default: "64px",
+      "@container globalHeader (max-width: 400px)": "32px",
+    },
+    height: {
+      default: "64px",
+      "@container globalHeader (max-width: 400px)": "32px",
+    },
   },
   nav: {
     flex: 1,
@@ -97,7 +109,10 @@ const styles = stylex.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    gap: "12px",
+    gap: {
+      default: "12px",
+      "@container globalHeader (max-width: 400px)": "6px",
+    },
     listStyle: "none",
   },
   li: {
@@ -106,11 +121,30 @@ const styles = stylex.create({
     alignItems: "center",
   },
   customButton: {
-    gap: "4px",
+    gap: {
+      default: "4px",
+      "@container globalHeader (max-width: 400px)": "2px",
+    },
     backgroundColor: {
       default: "transparent",
       ":hover": tokens.tertiary,
     },
     whiteSpace: "nowrap",
+  },
+  customoButtonIcon: {
+    width: {
+      default: "24px",
+      "@container globalHeader (max-width: 400px)": "16px",
+    },
+    height: {
+      default: "24px",
+      "@container globalHeader (max-width: 400px)": "16px",
+    },
+  },
+  customButtonInnerText: {
+    fontSize: {
+      default: "1rem",
+      "@container globalHeader (max-width: 400px)": "0.8rem",
+    },
   },
 });
