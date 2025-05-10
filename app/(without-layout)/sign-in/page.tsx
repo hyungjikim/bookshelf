@@ -13,6 +13,7 @@ import {
   inputStyles,
   labelStyles,
 } from "@/app/styles/form.styles";
+import { tokens } from "@/app/styles/tokens.stylex";
 
 const initialState = {
   fieldError: {},
@@ -29,7 +30,7 @@ export default function SignInPage() {
   );
 
   return (
-    <main {...stylex.props(layoutStyles.main)}>
+    <main {...stylex.props(layoutStyles.main, styles.customMain)}>
       <section {...stylex.props(layoutStyles.section)}>
         <Form action={formAction} {...stylex.props(formStyles.form)}>
           <div>
@@ -46,7 +47,11 @@ export default function SignInPage() {
               {...stylex.props(inputStyles.input, styles.input)}
             />
             {state.fieldError?.email && (
-              <p aria-live="polite" role="status">
+              <p
+                aria-live="polite"
+                role="status"
+                {...stylex.props(styles.feedback)}
+              >
                 {state.fieldError.email[0]}
               </p>
             )}
@@ -66,7 +71,11 @@ export default function SignInPage() {
               {...stylex.props(inputStyles.input)}
             />
             {state.fieldError?.password && (
-              <p aria-live="polite" role="status">
+              <p
+                aria-live="polite"
+                role="status"
+                {...stylex.props(styles.feedback)}
+              >
                 {state.fieldError.password[0]}
               </p>
             )}
@@ -80,21 +89,46 @@ export default function SignInPage() {
             {pending ? "...로그인중" : "로그인"}
           </button>
           {state.globalError && (
-            <p aria-live="polite" role="status">
+            <p
+              aria-live="polite"
+              role="status"
+              {...stylex.props(styles.feedback)}
+            >
               {state.globalError}
             </p>
           )}
         </Form>
-        <Link href="/sign-up">회원가입하기</Link>
 
-        <button onClick={googleLogin}>login with google</button>
-        <button onClick={githubLogin}>login with github</button>
+        <div {...stylex.props(styles.socialContainer)}>
+          <button
+            onClick={googleLogin}
+            type="button"
+            {...stylex.props(buttonStyles.button, styles.customSocialButton)}
+          >
+            구글로 시작하기
+          </button>
+          <button
+            onClick={githubLogin}
+            type="button"
+            {...stylex.props(buttonStyles.button, styles.customSocialButton)}
+          >
+            깃허브로 시작하기
+          </button>
+        </div>
+
+        <div {...stylex.props(styles.signUpAnchorContainer)}>
+          <small {...stylex.props(styles.small)}>계정을 만들어볼까요?</small>
+          <Link href="/sign-up" {...stylex.props(styles.signUpAnchor)}>
+            회원가입하기
+          </Link>
+        </div>
       </section>
     </main>
   );
 }
 
 const styles = stylex.create({
+  customMain: { maxWidth: "400px" },
   input: {
     maxWidth: "unset",
   },
@@ -102,5 +136,35 @@ const styles = stylex.create({
     marginTop: "12px",
     height: "36px",
     fontSize: "1.1rem",
+  },
+  socialContainer: {
+    display: "grid",
+    gap: "12px",
+  },
+  customSocialButton: {
+    backgroundColor: {
+      default: tokens.white,
+      ":hover": tokens.primary,
+    },
+    fontSize: "1.1rem",
+  },
+
+  signUpAnchorContainer: {
+    marginTop: "36px",
+    display: "grid",
+    textAlign: "center",
+  },
+  small: {
+    color: tokens.secondary,
+  },
+  signUpAnchor: {
+    color: {
+      default: tokens.text,
+      ":hover": tokens.dark,
+    },
+  },
+  feedback: {
+    marginTop: "4px",
+    color: tokens.danger,
   },
 });

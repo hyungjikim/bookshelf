@@ -7,6 +7,7 @@ export const tokens = stylex.defineVars({
   dark: "#9AA6B2",
   text: "#0F172A",
   white: "#F8FAFC",
+  danger: "#FF2400",
 });
 
 export const zIndex = stylex.defineVars({
