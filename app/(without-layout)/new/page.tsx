@@ -4,7 +4,7 @@ import * as stylex from "@stylexjs/stylex";
 
 export default function Page() {
   return (
-    <main {...stylex.props(layoutStyles.container)}>
+    <main {...stylex.props(layoutStyles.main)}>
       <section {...stylex.props(layoutStyles.section)}>
         <PublishForm />
       </section>

@@ -57,7 +57,7 @@ export default async function Page({ params }: Props) {
   }
 
   return (
-    <main {...stylex.props(layoutStyles.container)}>
+    <main {...stylex.props(layoutStyles.main)}>
       <section {...stylex.props(layoutStyles.section)}>
         <WithAuthorOnly createdBy={bookDetail.user_id}>
           <PostActionsControls id={bookDetail.id} />
