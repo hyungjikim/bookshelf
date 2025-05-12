@@ -11,7 +11,9 @@ import { useActionState, useRef } from "react";
 export function DeleteDialog({ id }: { id: number }) {
   const ref = useRef<HTMLDialogElement>(null);
 
-  const [state, formAction] = useActionState(deleteContent, { message: "" });
+  const [state, formAction, pending] = useActionState(deleteContent, {
+    message: "",
+  });
   return (
     <>
       <li
@@ -47,8 +49,9 @@ export function DeleteDialog({ id }: { id: number }) {
                   styles.confirmDeleteButton
                 )}
                 formAction={formAction}
+                disabled={pending}
               >
-                삭제
+                {pending ? "...삭제중" : "삭제"}
               </button>
             </form>
           </li>
