@@ -5,6 +5,7 @@ import Highlight from "@tiptap/extension-highlight";
 import Toolbar from "./Toolbar";
 import { LoaderCircle } from "lucide-react";
 import * as stylex from "@stylexjs/stylex";
+import Placeholder from "@tiptap/extension-placeholder";
 
 type Props = {
   value: string;
@@ -17,6 +18,9 @@ export default function EditorWrapper({ value, onChange }: Props) {
       StarterKit.configure({ heading: { levels: [1, 2, 3] } }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Highlight,
+      Placeholder.configure({
+        placeholder: "이 책을 읽고 어떤 생각을 하셨나요? 💡",
+      }),
     ],
     content: value,
     onUpdate: ({ editor }) => {

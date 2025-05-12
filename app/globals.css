@@ -42,6 +42,15 @@ a {
   @container editor (max-width: 400px) {
     padding: 8px;
   }
+
+  /* tiptap 에디터 placeholder */
+  p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
