@@ -30,7 +30,6 @@ export async function Footer() {
 const styles = stylex.create({
   container: {
     marginTop: "36px",
-    paddingBottom: "36px",
   },
   h4: {
     marginBottom: "36px",

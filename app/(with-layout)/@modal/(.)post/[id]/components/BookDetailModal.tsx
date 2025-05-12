@@ -21,19 +21,13 @@ const styles = stylex.create({
       default: 700,
       "@media (max-width: 700px)": "80vw",
     },
-    minHeight: {
-      default: 700,
-      "@media (max-width: 700px)": "80vh",
-    },
+    minHeight: "80vh",
   },
   content: {
     display: "flex",
     flexDirection: "column",
     gap: "16px",
-    maxHeight: {
-      default: "70vh",
-      "@media (max-width: 700px)": "70vh",
-    },
+    maxHeight: "70vh",
     overflow: "auto",
   },
 });
