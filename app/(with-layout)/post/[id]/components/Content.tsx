@@ -1,3 +1,8 @@
 export function Content({ body }: { body: string }) {
-  return <div dangerouslySetInnerHTML={{ __html: body }} />;
+  return (
+    <div
+      dangerouslySetInnerHTML={{ __html: body }}
+      className="editorRenderer"
+    />
+  );
 }
