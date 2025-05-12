@@ -49,5 +49,9 @@ export const inputStyles = stylex.create({
     borderColor: tokens.dark,
     borderWidth: "1px",
     fontSize: "1.1rem",
+    fontFamily: "IBM Plex Sans KR",
+    "::placeholder": {
+      fontSize: "0.9rem",
+    },
   },
 });
