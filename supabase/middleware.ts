@@ -1,8 +1,13 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_ROUTES = ["/", "/sign-up"];
-
+const PUBLIC_ROUTE_REGEX = [
+  /^\/$/, // 루트 라우트
+  /^\/sign-(in|up)$/, // /sign-in, /sign-up
+  /^\/post\/\d+$/, // /post/1 (숫자만 허용)
+  /^\/auth/, // /auth로 시작하는 경로
+  /^\/about$/, // /about
+];
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -31,8 +36,8 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  const isPublicRoute = PUBLIC_ROUTES.some(
-    (route) => request.nextUrl.pathname === route
+  const isPublicRoute = PUBLIC_ROUTE_REGEX.some((regex) =>
+    regex.test(request.nextUrl.pathname)
   );
 
   if (isPublicRoute) {
@@ -49,15 +54,11 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith("/sign-in") &&
-    !request.nextUrl.pathname.startsWith("/auth")
-  ) {
+  if (!user && !isPublicRoute) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
     url.pathname = "/sign-in";
-    // return NextResponse.redirect(url);
+    return NextResponse.redirect(url);
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
