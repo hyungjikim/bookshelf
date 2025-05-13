@@ -10,7 +10,8 @@ async function fetchMoreBooks(offset: number) {
   const { data } = await supabase
     .from("book_details")
     .select(BOOKS_SELECT)
-    .range(offset, offset + PAGE_SIZE - 1);
+    .range(offset, offset + PAGE_SIZE - 1)
+    .order("created_at", { ascending: false });
   return data?.map(adaptBookListToUI) ?? [];
 }
 
