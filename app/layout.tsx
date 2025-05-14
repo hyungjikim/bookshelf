@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans_KR } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 const ibmPlexSansKR = IBM_Plex_Sans_KR({
   weight: ["300", "400", "500", "600", "700"],
@@ -21,7 +22,10 @@ export default function Layout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${ibmPlexSansKR.className} `}>{children}</body>
+      <body className={`${ibmPlexSansKR.className} `}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
