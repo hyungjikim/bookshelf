@@ -11,6 +11,7 @@ import { ModalHeaderActions } from "./components/ModalHeaderActions";
 import { WithAuthorOnly } from "../../../post/[id]/components/WithAuthorOnly";
 import { Footer } from "@/app/(with-layout)/post/[id]/components/Footer";
 import { CreatedBy } from "@/app/(with-layout)/post/[id]/components/CreatedBy";
+import { OutsideClickHandler } from "./components/OutsideClickHandler";
 
 export default async function Page({
   params,
@@ -25,24 +26,26 @@ export default async function Page({
 
   return (
     <Overlay>
-      <BookDetailModal>
-        <WithAuthorOnly createdBy={bookDetail.user_id}>
-          <ModalHeaderActions id={bookDetail.id} />
-        </WithAuthorOnly>
-        <Suspense
-          fallback={
-            <div {...stylex.props(styles.fallbackWrapper)}>
-              <span>책 정보를 불러오고 있어요...</span>
-              <Loader />
-            </div>
-          }
-        >
-          <Header id={Number(bookDetail.book_id)} />
-        </Suspense>
-        {bookDetail.user_name && <CreatedBy name={bookDetail.user_name} />}
-        <Content body={bookDetail.content} />
-        <Footer />
-      </BookDetailModal>
+      <OutsideClickHandler>
+        <BookDetailModal>
+          <WithAuthorOnly createdBy={bookDetail.user_id}>
+            <ModalHeaderActions id={bookDetail.id} />
+          </WithAuthorOnly>
+          <Suspense
+            fallback={
+              <div {...stylex.props(styles.fallbackWrapper)}>
+                <span>책 정보를 불러오고 있어요...</span>
+                <Loader />
+              </div>
+            }
+          >
+            <Header id={Number(bookDetail.book_id)} />
+          </Suspense>
+          {bookDetail.user_name && <CreatedBy name={bookDetail.user_name} />}
+          <Content body={bookDetail.content} />
+          <Footer />
+        </BookDetailModal>
+      </OutsideClickHandler>
     </Overlay>
   );
 }
