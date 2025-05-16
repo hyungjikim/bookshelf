@@ -74,7 +74,7 @@ export default function InfiniteBookshelf({
 
 const styles = stylex.create({
   parent: {
-    // height: "80vh",
+    height: "800px",
     width: "100%",
     overflow: "auto",
     padding: "12px",
