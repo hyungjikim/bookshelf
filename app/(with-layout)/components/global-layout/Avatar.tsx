@@ -11,7 +11,7 @@ interface AvatarProps {
 
 export function Avatar({ url }: AvatarProps) {
   return (
-    <div>
+    <div {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.imgWrapper)}>
         <button popoverTarget="profile" popoverTargetAction="toggle">
           <Image src={url || "/누렁이.webp"} fill alt="avatar image" />
@@ -33,6 +33,11 @@ export function Avatar({ url }: AvatarProps) {
 }
 
 const styles = stylex.create({
+  container: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   imgWrapper: {
     position: "relative",
     width: "32px",
@@ -43,7 +48,7 @@ const styles = stylex.create({
   popoverTarget: {
     position: "absolute",
     inset: "unset",
-    top: "60px",
+    top: "70px",
     right: "10px",
     border: "none",
   },
