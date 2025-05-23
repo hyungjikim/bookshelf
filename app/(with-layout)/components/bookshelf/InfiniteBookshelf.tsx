@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { useVirtualizer } from "@tanstack/react-virtual";
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import * as stylex from "@stylexjs/stylex";
 
 import Cell from "./Cell";
@@ -18,26 +18,26 @@ export default function InfiniteBookshelf({
     initialData,
   });
 
-  const parentRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
-  const rowVirtualizer = useVirtualizer({
+  const virtualizer = useWindowVirtualizer({
     count: hasMore ? books.length + 1 : books.length,
-    getScrollElement: () => parentRef.current,
     estimateSize: () => 120,
     overscan: 2,
     gap: 12,
+    scrollMargin: listRef.current?.offsetTop ?? 0,
   });
 
   return (
-    <div ref={parentRef} {...stylex.props(styles.parent)}>
+    <div ref={listRef} {...stylex.props(styles.parent)}>
       <div
         style={{
-          height: `${rowVirtualizer.getTotalSize()}px`,
+          height: `${virtualizer.getTotalSize()}px`,
           width: "100%",
           position: "relative",
         }}
       >
-        {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+        {virtualizer.getVirtualItems().map((virtualRow) => {
           const isLoaderRow = virtualRow.index > books.length - 1;
           const book = books[virtualRow.index];
 
@@ -50,7 +50,9 @@ export default function InfiniteBookshelf({
                 left: 0,
                 width: "100%",
                 height: `${virtualRow.size}px`,
-                transform: `translateY(${virtualRow.start}px)`,
+                transform: `translateY(${
+                  virtualRow.start - virtualizer.options.scrollMargin
+                }px)`,
               }}
             >
               {isLoaderRow ? (
@@ -74,7 +76,6 @@ export default function InfiniteBookshelf({
 
 const styles = stylex.create({
   parent: {
-    height: "800px",
     width: "100%",
     overflow: "auto",
     padding: "12px",
