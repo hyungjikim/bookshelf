@@ -29,7 +29,7 @@ export default function InfiniteBookshelf({
   });
 
   return (
-    <div ref={listRef} {...stylex.props(styles.parent)}>
+    <div ref={listRef} {...stylex.props(styles.container)}>
       <div
         style={{
           height: `${virtualizer.getTotalSize()}px`,
@@ -75,7 +75,7 @@ export default function InfiniteBookshelf({
 }
 
 const styles = stylex.create({
-  parent: {
+  container: {
     width: "100%",
     overflow: "auto",
     padding: "12px",
