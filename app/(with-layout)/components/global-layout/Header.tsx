@@ -2,10 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import * as stylex from "@stylexjs/stylex";
 import { createClient } from "@/utils/supabase/server";
-import { LogOut, SquarePen } from "lucide-react";
-import { signOut } from "@/app/actions/auth";
-import { buttonStyles } from "@/app/styles/form.styles";
+import { SquarePen } from "lucide-react";
 import { tokens, zIndex } from "@/app/styles/tokens.stylex";
+import { Avatar } from "./Avatar";
 
 const PROJECT_REPO_URL = "https://github.com/hyungjikim/bookshelf";
 
@@ -54,18 +53,7 @@ export default async function Header() {
 
         {/* 로그인, 로그아웃 */}
         {user ? (
-          <li {...stylex.props(styles.li)}>
-            <form action={signOut}>
-              <button
-                {...stylex.props(buttonStyles.button, styles.customButton)}
-              >
-                <LogOut {...stylex.props(styles.customoButtonIcon)} />
-                <span {...stylex.props(styles.customButtonInnerText)}>
-                  로그아웃
-                </span>
-              </button>
-            </form>
-          </li>
+          <Avatar url={user.user_metadata?.avatar_url} />
         ) : (
           <li {...stylex.props(styles.li)}>
             <Link href="/sign-in">로그인</Link>
@@ -119,32 +107,5 @@ const styles = stylex.create({
     listStyle: "none",
     display: "flex",
     alignItems: "center",
-  },
-  customButton: {
-    gap: {
-      default: "4px",
-      "@container globalHeader (max-width: 400px)": "2px",
-    },
-    backgroundColor: {
-      default: "transparent",
-      ":hover": tokens.tertiary,
-    },
-    whiteSpace: "nowrap",
-  },
-  customoButtonIcon: {
-    width: {
-      default: "24px",
-      "@container globalHeader (max-width: 400px)": "16px",
-    },
-    height: {
-      default: "24px",
-      "@container globalHeader (max-width: 400px)": "16px",
-    },
-  },
-  customButtonInnerText: {
-    fontSize: {
-      default: "1rem",
-      "@container globalHeader (max-width: 400px)": "0.8rem",
-    },
   },
 });
