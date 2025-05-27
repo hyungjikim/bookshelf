@@ -1,12 +1,15 @@
 import * as stylex from "@stylexjs/stylex";
 
 export function CreatedBy({ name }: { name: string }) {
-  return <small {...stylex.props(styles.small)}>{name}님 작성</small>;
+  return (
+    <span {...stylex.props(styles.span)}>
+      <b>{name}</b>님 작성
+    </span>
+  );
 }
 
 const styles = stylex.create({
-  small: {
+  span: {
     textAlign: "end",
-    margin: "8px 0",
   },
 });
