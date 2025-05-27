@@ -12,6 +12,7 @@ import { WithAuthorOnly } from "../../../post/[id]/components/WithAuthorOnly";
 import { Footer } from "@/app/(with-layout)/post/[id]/components/Footer";
 import { CreatedBy } from "@/app/(with-layout)/post/[id]/components/CreatedBy";
 import { OutsideClickHandler } from "./components/OutsideClickHandler";
+import { CreatedAt } from "@/app/(with-layout)/post/[id]/components/CreatedAt";
 
 export default async function Page({
   params,
@@ -23,7 +24,6 @@ export default async function Page({
   if (!bookDetail || error) {
     notFound();
   }
-
   return (
     <Overlay>
       <OutsideClickHandler>
@@ -41,7 +41,13 @@ export default async function Page({
           >
             <Header id={Number(bookDetail.book_id)} />
           </Suspense>
-          {bookDetail.user_name && <CreatedBy name={bookDetail.user_name} />}
+          <div {...stylex.props(styles.creatorBlock)}>
+            {bookDetail.user_name && <CreatedBy name={bookDetail.user_name} />}
+            {bookDetail.created_at && (
+              <CreatedAt date={new Date(bookDetail.created_at)} />
+            )}
+          </div>
+
           <Content body={bookDetail.content} />
           <Footer />
         </BookDetailModal>
@@ -53,5 +59,9 @@ export default async function Page({
 const styles = stylex.create({
   fallbackWrapper: {
     minHeight: "56px",
+  },
+  creatorBlock: {
+    display: "grid",
+    gap: "4px",
   },
 });
