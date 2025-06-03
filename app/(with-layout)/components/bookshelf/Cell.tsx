@@ -2,6 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Book } from "./types";
 import { ChevronRight } from "lucide-react";
 import { tokens } from "@/app/styles/tokens.stylex";
+import dayjs from "dayjs";
 
 export default function Cell({ book }: { book: Book }) {
   return (
@@ -11,23 +12,32 @@ export default function Cell({ book }: { book: Book }) {
           {book.title}
         </h1>
 
-        {book.author && (
-          <p
-            {...stylex.props(styles.desc, styles.author)}
-            data-testid="cell-author"
-          >
-            {book.author}
-          </p>
-        )}
+        <div {...stylex.props(styles.descFlexBox)}>
+          {book.author && (
+            <p
+              {...stylex.props(styles.desc, styles.author)}
+              data-testid="cell-author"
+            >
+              {book.author}
+            </p>
+          )}
 
-        {book.publisher && (
-          <p
-            {...stylex.props(styles.desc, styles.publisher)}
-            data-testid="cell-publisher"
-          >
-            {book.publisher}
-          </p>
-        )}
+          {book.publisher && (
+            <>
+              {book.author && <small>·</small>}
+              <p
+                {...stylex.props(styles.desc, styles.publisher)}
+                data-testid="cell-publisher"
+              >
+                {book.publisher}
+              </p>
+            </>
+          )}
+        </div>
+
+        <small {...stylex.props(styles.createdAt)}>
+          {dayjs(book.created_at).format("YYYY.MM.DD")}
+        </small>
       </div>
 
       <div>
@@ -62,6 +72,12 @@ const styles = stylex.create({
     whiteSpace: "nowrap",
     color: tokens.text,
   },
+  descFlexBox: {
+    display: "flex",
+    gap: "4px",
+    alignItems: "center",
+    margin: "4px 0",
+  },
   desc: {
     fontSize: "0.9rem",
     textOverflow: "ellipsis",
@@ -72,6 +88,9 @@ const styles = stylex.create({
     color: "#888",
   },
   publisher: {
-    color: "#d1d1d1",
+    color: "#888",
+  },
+  createdAt: {
+    color: "#afadad",
   },
 });
