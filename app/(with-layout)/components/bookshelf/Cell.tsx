@@ -1,8 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
-import { Book } from "./types";
 import { ChevronRight } from "lucide-react";
 import { tokens } from "@/app/styles/tokens.stylex";
 import dayjs from "dayjs";
+import { Book } from "../../types/book";
 
 export default function Cell({ book }: { book: Book }) {
   return (

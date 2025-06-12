@@ -1,6 +1,5 @@
 "use client";
 
-import { Book } from "@/app/(with-layout)/components/bookshelf/types";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRef } from "react";
 import { useInfiniteBooks } from "@/app/(with-layout)/hooks/useInfiniteBooks";
@@ -8,6 +7,7 @@ import Cell from "@/app/(with-layout)/components/bookshelf/Cell";
 import { Loader } from "lucide-react";
 import Link from "next/link";
 import * as stylex from "@stylexjs/stylex";
+import { Book } from "@/app/(with-layout)/types/book";
 
 export default function HorizontalInfiniteBookshelf({
   initialData,

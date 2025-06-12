@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect, useTransition } from "react";
 import { PAGE_SIZE } from "@/app/constants/books";
-import { Book } from "../components/bookshelf/types";
 import { createClient } from "@/utils/supabase/client";
 import { adaptBookListToUI } from "@/app/utils/adaptBookListToUI";
 import { BOOKS_SELECT } from "@/app/lib/queries/getBooksSelect";
+import { Book } from "../types/book";
 
 /**
  * 무한 스크롤을 사용하여 책 데이터를 가져오는 훅

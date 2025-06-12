@@ -5,9 +5,9 @@ import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import * as stylex from "@stylexjs/stylex";
 
 import Cell from "./Cell";
-import { Book } from "./types";
 import { useInfiniteBooks } from "../../hooks/useInfiniteBooks";
 import Link from "next/link";
+import { Book } from "../../types/book";
 
 export default function InfiniteBookshelf({
   initialData,
