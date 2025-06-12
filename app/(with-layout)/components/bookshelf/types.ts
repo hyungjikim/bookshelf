@@ -1,11 +1,9 @@
-import { Database } from "@/database.types";
-
-export type Book = Database["public"]["Tables"]["books"]["Row"];
-type BookDetails = Database["public"]["Tables"]["book_details"]["Row"];
+import { Book } from "../../types/book";
+import { BookDetail } from "../../types/bookDetail";
 
 type BookMetaData = Pick<Book, "title" | "author" | "publisher">;
 
-type BookOverview = Pick<BookDetails, "id" | "created_at">;
+type BookOverview = Pick<BookDetail, "id" | "created_at">;
 
 export type BooksListWithJoin = BookOverview & {
   book_id: BookMetaData;
