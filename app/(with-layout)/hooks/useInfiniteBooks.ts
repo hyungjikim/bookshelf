@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect, useTransition } from "react";
 import { PAGE_SIZE } from "@/app/constants/books";
-import { createClient } from "@/utils/supabase/client";
 import { adaptBookListToUI } from "@/app/utils/adaptBookListToUI";
-import { BOOKS_SELECT } from "@/app/lib/queries/getBooksSelect";
 import { Book } from "../types/book";
 
 /**
