@@ -28,7 +28,7 @@ export function useInfiniteBooks({ initialData }: { initialData: Book[] }) {
           startTransition(async () => {
             const offset = page * PAGE_SIZE;
 
-            const res = await fetch(`/books?offset=${offset}`);
+            const res = await fetch(`/api/books?offset=${offset}`);
             const data = await res.json();
 
             const moreBooks = data?.map(adaptBookListToUI) ?? [];
