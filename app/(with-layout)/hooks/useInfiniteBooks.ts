@@ -30,12 +30,8 @@ export function useInfiniteBooks({ initialData }: { initialData: Book[] }) {
           startTransition(async () => {
             const offset = page * PAGE_SIZE;
 
-            const supabase = createClient();
-            const { data } = await supabase
-              .from("book_details")
-              .select(BOOKS_SELECT)
-              .range(offset, offset + PAGE_SIZE - 1)
-              .order("created_at", { ascending: false });
+            const res = await fetch(`/books?offset=${offset}`);
+            const data = await res.json();
 
             const moreBooks = data?.map(adaptBookListToUI) ?? [];
 
