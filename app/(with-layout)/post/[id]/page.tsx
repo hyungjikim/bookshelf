@@ -14,11 +14,7 @@ import { getBookMetadata } from "./utils/getBookMetadata";
 import { CreatedBy } from "./components/CreatedBy";
 import { CreatedAt } from "./components/CreatedAt";
 
-interface Props {
-  params: Promise<{ id: string }>;
-}
-
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: PageProps<"/post/[id]">) {
   const { id } = await params;
   const book = await getBookMetadata(Number(id));
   return {
@@ -48,7 +44,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params }: PageProps<"/post/[id]">) {
   const { id } = await params;
 
   const { bookDetail, error } = await getBookDetail(Number(id));
