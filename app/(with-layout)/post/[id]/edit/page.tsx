@@ -7,11 +7,7 @@ import { Header } from "../components/Header";
 import { EditForm } from "./Form";
 import { layoutStyles } from "@/app/styles/layout.styles";
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function Page({ params }: PageProps<"/post/[id]/edit">) {
   const { id } = await params;
 
   const { bookDetail, error } = await getBookDetail(Number(id));

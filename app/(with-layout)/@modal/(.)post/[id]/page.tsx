@@ -14,11 +14,7 @@ import { CreatedBy } from "@/app/(with-layout)/post/[id]/components/CreatedBy";
 import { OutsideClickHandler } from "./components/OutsideClickHandler";
 import { CreatedAt } from "@/app/(with-layout)/post/[id]/components/CreatedAt";
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function Page({ params }: PageProps<"/post/[id]">) {
   const { id } = await params;
   const { bookDetail, error } = await getBookDetail(Number(id));
   if (!bookDetail || error) {
