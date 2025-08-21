@@ -26,9 +26,9 @@
     "@vercel/analytics": "^1.5.0",
     "dayjs": "^1.11.13",
     "lucide-react": "^0.503.0",
-    "next": "15.3.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "next": "15.5.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-use": "^17.6.0",
     "schema-dts": "^1.1.5",
     "zod": "^3.24.3"
@@ -41,7 +41,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.3.1",
+    "eslint-config-next": "15.5.0",
     "sass": "^1.87.0",
     "supabase": "^2.20.12",
     "typescript": "^5"
